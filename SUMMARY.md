@@ -11,4 +11,5 @@
     * [windows常用命令](book/windows/windows-chang-yong-ming-ling.md)
     * [win10企业LTSC版激活](book/windows/win10-qi-ye-ltsc-ban-ji-huo.md)
     * [debug-tools](book/windows/debug-tools.md)
+  * [test](book/test.md)    
 
