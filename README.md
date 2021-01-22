@@ -1,2 +1,6 @@
-# Study notes
+---
+description: Study notes
+---
+
+# Initial page
 
