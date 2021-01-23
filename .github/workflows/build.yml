@@ -1,0 +1,23 @@
+name: Build my gitbook and deploy to gh-pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    name: Build and deploy
+    runs-on: ubuntu-latest
+    env:
+      MY_SECRET   : 23e77fcdfda67b264737527285c2049f268c9f2a
+      USER_NAME   : panxin30
+      USER_EMAIL  : tony@lwork.com
+      BOOK_DIR    : book
+
+    steps:
+    - name: Checkout 🛎️
+      uses: actions/checkout@v2
+    - name: Build and Deploy 🚀
+      uses: panxin30/book@v0.0.1
