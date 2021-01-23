@@ -20,4 +20,4 @@ jobs:
     - name: Checkout 🛎️
       uses: actions/checkout@v2
     - name: Build and Deploy 🚀
-      uses: panxin30/book@2.276.1
+      uses: panxin30/book@v2.276.1
