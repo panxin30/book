@@ -7,17 +7,17 @@ on:
       - master
 
 jobs:
-  build-and-deploy:
-    name: Build and deploy
+  build:
+    name: Build Gitbook
     runs-on: ubuntu-latest
-    env:
-      MY_SECRET   : 23e77fcdfda67b264737527285c2049f268c9f2a
-      USER_NAME   : panxin30
-      USER_EMAIL  : tony@lwork.com
-      BOOK_DIR    : book
-
     steps:
-    - name: Checkout 🛎️
-      uses: actions/checkout@v2
-    - name: Build and Deploy 🚀
-      uses: onejar99/gitbook-build-publish-action@v1.0.0
+      # Check out the repo first
+      - name: Checkout code
+        uses: actions/checkout@v2
+      # Run this action to publish gitbook
+      - name: Publish
+        uses: tuliren/publish-gitbook@v1.0.0
+        with:
+          # specify either github_token or personal_token
+          github_token: 23e77fcdfda67b264737527285c2049f268c9f2a
+          # personal_token: ${{ secrets.PERSONAL_TOKEN }}
