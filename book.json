@@ -58,6 +58,11 @@
         "github": {
             "url": "https://github.com/panxin30"
         },
+		"prism": {
+			"css": [
+				"prismjs/themes/prism-tomorrow.css"
+			]
+		},
         "tbfed-pagefooter": {
             "copyright": "&copy panxin30",
             "modify_label": "文件修订时间: ",
