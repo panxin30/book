@@ -1,0 +1,67 @@
+{
+    "title": "好好学习,天天向上!",
+    "author": "tony",
+    "description": "个人博客,详情请访问 https://panxin30.github.io/",
+    "language": "zh-hans",
+    "gitbook": "3.2.3",
+    "links": {
+        "sidebar": {
+            "技术博客": "https://test.cn/"
+        }
+    },
+    "plugins": [
+        "-highlight",
+        "-lunr",
+        "-sharing",
+        "-search",
+        "back-to-top-button",
+        "chapter-fold",
+        "code",
+        "expandable-chapters",
+        "edit-link-plus",
+        "github",
+        "prism",
+        "search-pro",
+        "splitter",
+        "sharing-plus",
+        "tbfed-pagefooter"
+    ],
+    "pluginsConfig": {
+        "sharing": {
+            "douban": true,
+            "facebook": false,
+            "google": false,
+            "hatenaBookmark": false,
+            "instapaper": false,
+            "line": false,
+            "linkedin": false,
+            "messenger": false,
+            "pocket": false,
+            "qq": true,
+            "qzone": true,
+            "stumbleupon": false,
+            "twitter": false,
+            "viber": false,
+            "vk": false,
+            "weibo": true,
+            "whatsapp": false,
+            "all": [
+                "facebook", "google", "twitter",
+                "weibo", "instapaper", "linkedin",
+                "pocket", "stumbleupon"
+            ]
+        },
+        "edit-link-plus": {
+            "base": "https://github.com/panxin30/panxin30.github.io/edit/master",
+            "label": "编辑本页"
+        },
+        "github": {
+            "url": "https://github.com/panxin30"
+        },
+        "tbfed-pagefooter": {
+            "copyright": "&copy panxin30",
+            "modify_label": "文件修订时间: ",
+            "modify_format": "YYYY-MM-DD HH:mm:ss"
+        }
+    }
+}
