@@ -4,6 +4,7 @@
 * [Markdown入门](markdown-ru-men.md)
 * [github及gitbook入门](github-ji-gitbook-ru-men.md)
 * [Book](book/README.md)
+  * [github及gitbook入门](book/github-ji-gitbook-ru-men.md)
   * [notes](book/notes/README.md)
     * [shell](book/notes/shell/README.md)
       * [如何才能学好Shell编程之“老鸟”经验谈](book/notes/shell/ru-he-cai-neng-xue-hao-shell-bian-cheng-zhi-lao-niao-jing-yan-tan.md)
