@@ -21,6 +21,10 @@ GitHub 为每一个用户分配了一个二级域名&lt;user-id&gt;.github.io，
 
 为项目启用项目主页很简单，只需要在项目版本库中创建一个名为gh-pages的分支，并向其中添加静态网页即可。也就是说如果项目的Git版本库中包含了名为gh-pages分支的话，则表明该项目提供静态网页构成的主页，可以通过网址http://&lt;user-id&gt;[.github.io/](http://.github.io/)&lt;project-name&gt;访问到。
 
+创建gh-pages分支后，还需要在book这个仓库的settings中启用github pages
+
+![](.gitbook/assets/image%20%282%29.png)
+
 ## 二、gitbook
 
 #### 1. 安装gitbook
