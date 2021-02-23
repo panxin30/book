@@ -17,6 +17,8 @@
       * [openstack基础](book/notes/openstack/openstack-ji-chu/README.md)
         * [网络虚拟化技术基础](book/notes/openstack/openstack-ji-chu/wang-luo-xu-ni-hua-ji-shu-ji-chu.md)
         * [openstack基础](book/notes/openstack/openstack-ji-chu/openstack-ji-chu.md)
+      * [openstack安装](book/notes/openstack/openstack-an-zhuang/README.md)
+        * [Environment](book/notes/openstack/openstack-an-zhuang/environment.md)
   * [Ubuntu](book/ubuntu.md)
   * [Network foundation](book/network-foundation.md)
   * [za](book/za.md)
