@@ -645,7 +645,20 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6.2" data-path="../../untitled/c.html">
+        <li class="chapter " data-level="1.4.6.2" data-path="../../untitled/b.html">
+            
+                <a href="../../untitled/b.html">
+            
+                    
+                    B
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6.3" data-path="../../untitled/c.html">
             
                 <a href="../../untitled/c.html">
             
@@ -658,7 +671,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6.3" data-path="../../untitled/d.html">
+        <li class="chapter " data-level="1.4.6.4" data-path="../../untitled/d.html">
             
                 <a href="../../untitled/d.html">
             
@@ -671,7 +684,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6.4" data-path="../../untitled/m.html">
+        <li class="chapter " data-level="1.4.6.5" data-path="../../untitled/m.html">
             
                 <a href="../../untitled/m.html">
             
@@ -684,7 +697,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6.5" data-path="../../untitled/i.html">
+        <li class="chapter " data-level="1.4.6.6" data-path="../../untitled/i.html">
             
                 <a href="../../untitled/i.html">
             
@@ -697,7 +710,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6.6" data-path="../../untitled/p.html">
+        <li class="chapter " data-level="1.4.6.7" data-path="../../untitled/p.html">
             
                 <a href="../../untitled/p.html">
             
@@ -710,12 +723,38 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4.6.7" data-path="../../untitled/s.html">
+        <li class="chapter " data-level="1.4.6.8" data-path="../../untitled/s.html">
             
                 <a href="../../untitled/s.html">
             
                     
                     S
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6.9" data-path="../../untitled/t.html">
+            
+                <a href="../../untitled/t.html">
+            
+                    
+                    T
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6.10" data-path="../../untitled/v.html">
+            
+                <a href="../../untitled/v.html">
+            
+                    
+                    V
             
                 </a>
             
@@ -786,26 +825,9 @@
 </code></pre>
 <p>Another application that can help identify all network interfaces available to your system is the <strong>lshw</strong> command. This command provides greater details around the <strong>hardware</strong> capabilities of specific adapters. In the example below, lshw shows a single Ethernet interface with the logical name of eth0 along with bus information, driver details and all supported capabilities.</p>
 <pre class="language-"><code class="lang-text">sudo lshw -class network
-  *-network
-       description: Ethernet interface
-       product: MT26448 [ConnectX EN 10GigE, PCIe 2.0 5GT/s]
-       vendor: Mellanox Technologies
-       physical id: 0
-       bus info: pci@0004:01:00.0
-       logical name: eth4
-       version: b0
-       serial: e4:1d:2d:67:83:56
-       slot: U78CB.001.WZS09KB-P1-C6-T1
-       size: 10Gbit/s
-       capacity: 10Gbit/s
-       width: 64 bits
-       clock: 33MHz
-       capabilities: pm vpd msix pciexpress bus_master cap_list ethernet physical fibre 10000bt-fd
-       configuration: autonegotiation=off broadcast=yes driver=mlx4_en driverversion=4.0-0 duplex=full firmware=2.9.1326 ip=192.168.1.1 latency=0 link=yes multicast=yes port=fibre speed=10Gbit/s
-       resources: iomemory:24000-23fff irq:481 memory:3fe200000000-3fe2000fffff memory:240000000000-240007ffffff
 </code></pre>
 <h4 id="ethernet-interface-logical-names">Ethernet Interface Logical Names</h4>
-<p>Interface logical names can also be configured via a netplan configuration. If you would like control which interface receives a particular logical name use the <em>match</em> and <em>set-name</em> keys. The match key is used to find an adapter based on some criteria like MAC address, driver, etc. Then the set-name key can be used to change the device to the desired logial name.</p>
+<p>Interface logical names can also be configured via a netplan configuration. If you would like control which interface receives a particular logical name use the <em><strong>match</strong></em> and <em><strong>set-name</strong></em> keys. The match key is used to find an adapter based on some criteria like MAC address, driver, etc. Then the set-name key can be used to change the device to the desired logial name.</p>
 <pre class="language-"><code class="lang-text">network:
   version: 2
   renderer: networkd
@@ -816,13 +838,88 @@
         macaddress: 00:11:22:33:44:55
       set-name: eth_lan0
 </code></pre>
+<h4 id="ethernet-interface-settings">Ethernet Interface Settings</h4>
+<p><em><strong>ethtool</strong></em> is a program that displays and changes Ethernet card settings such as auto-negotiation, port speed, duplex mode, and Wake-on-LAN. The following is an example of how to view supported features and configured settings of an Ethernet interface.</p>
+<pre class="language-"><code class="lang-text">sudo ethtool eth4(Ethernet card)
+</code></pre>
 <h2 id="&#x4E8C;&#x3001;ip-addressing">&#x4E8C;&#x3001;IP Addressing</h2>
+<p>The following section describes the process of configuring your systems IP address and default gateway needed for communicating on a local area network and the Internet.</p>
+<h4 id="temporary-ip-address-assignment">Temporary IP Address Assignment</h4>
+<p>For temporary network configurations, you can use the ip command which is also found on most other GNU/Linux operating systems. The ip command allows you to configure settings which take effect immediately, however they are not persistent and will be lost after a reboot.</p>
+<p>To temporarily configure an IP address, you can use the ip command in the following manner. Modify the IP address and subnet mask to match your network requirements.</p>
+<pre class="language-"><code class="lang-text">sudo ip addr add 10.102.66.200/24 dev enp0s25
+</code></pre>
+<p>The ip can then be used to set the link up or down.</p>
+<pre class="language-"><code class="lang-text">ip link set dev enp0s25 up
+ip link set dev enp0s25 down
+</code></pre>
+<p>To verify the IP address configuration of enp0s25, you can use the ip command in the following manner.</p>
+<pre class="language-"><code class="lang-text">ip address show dev enp0s25
+10: enp0s25: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>BROADCAST,MULTICAST,UP,LOWER_UP</span><span class="token punctuation">&gt;</span></span> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 00:16:3e:e2:52:42 brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 10.102.66.200/24 brd 10.102.66.255 scope global dynamic eth0
+       valid_lft 2857sec preferred_lft 2857sec
+    inet6 fe80::216:3eff:fee2:5242/64 scope link
+       valid_lft forever preferred_lft forever6
+</code></pre>
+<p><strong>To configure a default gateway</strong>, you can use the ip command in the following manner. Modify the default gateway address to match your network requirements.</p>
+<pre class="language-"><code class="lang-text">sudo ip route add default via 10.102.66.1
+</code></pre>
+<p>To verify your default gateway configuration, you can use the ip command in the following manner.</p>
+<pre class="language-"><code class="lang-text">ip route show
+default via 10.102.66.1 dev eth0 proto dhcp src 10.102.66.200 metric 100
+10.102.66.0/24 dev eth0 proto kernel scope link src 10.102.66.200
+10.102.66.1 dev eth0 proto dhcp scope link src 10.102.66.200 metric 100
+</code></pre>
+<p>If you require DNS for your temporary network configuration, you can add DNS server IP addresses in the file /etc/resolv.conf. In general, editing /etc/resolv.conf directly is not recommanded, but this is a temporary and non-persistent configuration. The example below shows how to enter two DNS servers to /etc/resolv.conf, which should be changed to servers appropriate for your network. A more lengthy description of the proper persistent way to do DNS client configuration is in a following section.</p>
+<pre class="language-"><code class="lang-text">nameserver 8.8.8.8
+nameserver 8.8.4.4
+</code></pre>
+<p>If you no longer need this configuration and wish to purge all IP configuration from an interface, you can use the ip command with the flush option as shown below.</p>
+<pre class="language-"><code class="lang-text">ip addr flush eth0
+</code></pre>
+<p>Flushing the IP configuration using the ip command does not clear the contents of /etc/resolv.conf. You must remove or modify those entries manually, or re-boot which should also cause /etc/resolv.conf, which is a symlink to /run/systemd/resolve/stub-resolv.conf, to be re-written.</p>
+<h4 id="static-ip-address-assignment">Static IP Address Assignment</h4>
+<p>To configure your system to use static address assignment, create a netplan configuration in the file /etc/netplan/99_config.yaml. The example below assumes you are configuring your first Ethernet interface identified as eth0. Change the addresses, gateway4, and nameservers values to meet the requirements of your network.</p>
+<pre class="language-"><code class="lang-text">network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+      addresses:
+        - 10.10.10.2/24
+      gateway4: 10.10.10.1
+      nameservers:
+          search: [mydomain, otherdomain]
+          addresses: [10.10.10.1, 1.1.1.1]
+</code></pre>
+<p>The configuration can then be applied using the netplan command.</p>
+<pre class="language-"><code class="lang-text">sudo netplan apply
+</code></pre>
 <h2 id="&#x4E09;&#x3001;name-resolution">&#x4E09;&#x3001;Name Resolution</h2>
 <h2 id="&#x56DB;&#x3001;bridging">&#x56DB;&#x3001;Bridging</h2>
+<p>Bridging multiple interfaces is a more advanced configuration, but is very useful in multiple scenarios. One scenario is setting up a bridge with multiple network interfaces, then using a firewall to filter traffic between two network segments. Another scenario is using bridge on a system with one interface to allow virtual machines direct access to the outside network. The following example covers the latter scenario.</p>
+<p>Configure the bridge by editing your netplan configuration found in /etc/netplan/:</p>
+<pre class="language-"><code class="lang-text">network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp3s0:
+      dhcp4: no
+  bridges:
+    br0:
+      dhcp4: yes
+      interfaces:
+        - enp3s0
+</code></pre>
+<p>Enter the appropriate values for your physical interface and network.</p>
+<p>Now apply the configuration to enable the bridge:</p>
+<pre class="language-"><code class="lang-text">sudo netplan apply
+</code></pre>
+<p>The new bridge interface should now be up and running. The brctl provides useful information about the state of the bridge, controls which interfaces are part of the bridge, etc. See man brctl for more information.</p>
 <h2 id="&#x4E94;&#x3001;resources">&#x4E94;&#x3001;Resources</h2>
-<pre class="language-"><code>$ give me super-powers
-</code></pre><footer class="page-footer"><span class="copyright">&#xA9; panxin30 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;: 
-2021-02-24 10:58:19
+<footer class="page-footer"><span class="copyright">&#xA9; panxin30 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x6587;&#x4EF6;&#x4FEE;&#x8BA2;&#x65F6;&#x95F4;: 
+2021-02-25 10:45:31
 </span></footer>
                                 
                                 </section>
@@ -866,7 +963,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"description":"引用：https://help.ubuntu.com/18.04/serverguide/network-configuration.html","title":"Network Configuration","level":"1.4.2.1.1","depth":4,"next":{"title":"Network foundation","level":"1.4.3","depth":2,"path":"book/network-foundation.md","ref":"book/network-foundation.md","articles":[]},"previous":{"title":"ubuntu networking","level":"1.4.2.1","depth":3,"path":"book/ubuntu/ubuntu-networking/README.md","ref":"book/ubuntu/ubuntu-networking/README.md","articles":[{"title":"Network Configuration","level":"1.4.2.1.1","depth":4,"path":"book/ubuntu/ubuntu-networking/network-configuration.md","ref":"book/ubuntu/ubuntu-networking/network-configuration.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-highlight","-lunr","-sharing","-search","back-to-top-button","chapter-fold","code","expandable-chapters","edit-link-plus","github","prism","search-pro","splitter","sharing-plus","tbfed-pagefooter"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy panxin30","modify_label":"文件修订时间: ","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"github":{"url":"https://github.com/panxin30"},"splitter":{},"search-pro":{},"edit-link-plus":{"label":"编辑本页","base":"https://github.com/panxin30/panxin30.github.io/edit/master"},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"sharing":{"qq":true,"all":["facebook","google","twitter","weibo","instapaper","linkedin","pocket","stumbleupon"],"douban":true,"facebook":false,"weibo":true,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":true,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"tony","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"好好学习,天天向上!","language":"zh-hans","links":{"sidebar":{"技术博客":"https://test.cn/"}},"gitbook":"3.2.3","description":"个人博客,详情请访问 https://panxin30.github.io/"},"file":{"path":"book/ubuntu/ubuntu-networking/network-configuration.md","mtime":"2021-02-24T10:58:19.467Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-02-24T10:59:48.093Z"},"basePath":"../../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"description":"引用：https://help.ubuntu.com/18.04/serverguide/network-configuration.html","title":"Network Configuration","level":"1.4.2.1.1","depth":4,"next":{"title":"Network foundation","level":"1.4.3","depth":2,"path":"book/network-foundation.md","ref":"book/network-foundation.md","articles":[]},"previous":{"title":"ubuntu networking","level":"1.4.2.1","depth":3,"path":"book/ubuntu/ubuntu-networking/README.md","ref":"book/ubuntu/ubuntu-networking/README.md","articles":[{"title":"Network Configuration","level":"1.4.2.1.1","depth":4,"path":"book/ubuntu/ubuntu-networking/network-configuration.md","ref":"book/ubuntu/ubuntu-networking/network-configuration.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["-highlight","-lunr","-sharing","-search","back-to-top-button","chapter-fold","code","expandable-chapters","edit-link-plus","github","prism","search-pro","splitter","sharing-plus","tbfed-pagefooter"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"&copy panxin30","modify_label":"文件修订时间: ","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"github":{"url":"https://github.com/panxin30"},"splitter":{},"search-pro":{},"edit-link-plus":{"label":"编辑本页","base":"https://github.com/panxin30/panxin30.github.io/edit/master"},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"code":{"copyButtons":true},"fontsettings":{"theme":"white","family":"sans","size":2},"back-to-top-button":{},"sharing":{"qq":true,"all":["facebook","google","twitter","weibo","instapaper","linkedin","pocket","stumbleupon"],"douban":true,"facebook":false,"weibo":true,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":false,"messenger":false,"line":false,"vk":false,"pocket":false,"google":false,"viber":false,"stumbleupon":false,"qzone":true,"linkedin":false},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"tony","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"好好学习,天天向上!","language":"zh-hans","links":{"sidebar":{"技术博客":"https://test.cn/"}},"gitbook":"3.2.3","description":"个人博客,详情请访问 https://panxin30.github.io/"},"file":{"path":"book/ubuntu/ubuntu-networking/network-configuration.md","mtime":"2021-02-25T10:45:31.054Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-02-25T10:46:32.338Z"},"basePath":"../../..","book":{"language":""}});
         });
     </script>
 </div>
