@@ -35,10 +35,13 @@
     * [debug-tools](book/windows/debug-tools.md)
   * [Untitled](book/untitled/README.md)
     * [A](book/untitled/a.md)
+    * [B](book/untitled/b.md)
     * [C](book/untitled/c.md)
     * [D](book/untitled/d.md)
     * [M](book/untitled/m.md)
     * [I](book/untitled/i.md)
     * [P](book/untitled/p.md)
     * [S](book/untitled/s.md)
+    * [T](book/untitled/t.md)
+    * [V](book/untitled/v.md)
 
