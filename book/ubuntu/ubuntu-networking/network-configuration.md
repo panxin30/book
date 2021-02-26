@@ -107,7 +107,7 @@ ip addr flush eth0
 
 Flushing the IP configuration using the ip command does not clear the contents of /etc/resolv.conf. You must remove or modify those entries manually, or re-boot which should also cause /etc/resolv.conf, which is a symlink to /run/systemd/resolve/stub-resolv.conf, to be re-written.
 
-#### Static IP Address Assignment
+#### Static IP Address Assignment静态地址分配
 
 To configure your system to use static address assignment, create a netplan configuration in the file /etc/netplan/99\_config.yaml. The example below assumes you are configuring your first Ethernet interface identified as eth0. Change the addresses, gateway4, and nameservers values to meet the requirements of your network.
 
