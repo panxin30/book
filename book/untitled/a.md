@@ -8,3 +8,5 @@ auto-negotiation 自动协商。自动协商是一项功能，它允许交换机
 
 adapter \[əˈdaptər\] 适配器
 
+appropriate 合适的
+
