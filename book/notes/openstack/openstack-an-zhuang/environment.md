@@ -39,7 +39,7 @@ os:Ubuntu 18.04.5 LTS \(GNU/Linux 4.15.0-117-generic x86\_64\)
 
 > Note: 该实验环境是单网卡物理机，需求一块物理网卡能够绑定多个 IP 以及多个 MAC 地址，绑定多个 IP 很容易，但是这些 IP 会共享物理网卡的 MAC 地址,所以用物理网卡虚拟化macvlan。该实验instance接口和外网接口用同一个接口 tun 设备用来实现三层隧道（三层 ip 数据报），tap 设备用来实现二层隧道（二层以太网数据帧）
 
-三台服务器确认是否支持硬件虚拟化 `egrep -c '(vmx|svm)' /proc/cpuinfo` [https://leanote.com/api/file/getImage?fileId=5f69bbd1ab64415f41000939](https://leanote.com/api/file/getImage?fileId=5f69bbd1ab64415f41000939) 在此基础上加一个管理节点。
+三台服务器确认是否支持硬件虚拟化 `egrep -c '(vmx|svm)' /proc/cpuinfo` 
 
 ## 2. 主机网络：
 
@@ -219,8 +219,4 @@ ETCD_LISTEN_CLIENT_URLS="http://10.0.0.11:2379"
 #### Object Storage Installation Guide for Stein
 
 [https://docs.openstack.org/swift/stein/install/](https://docs.openstack.org/swift/stein/install/)
-
-待解决问题 ubuntu 18.04 bonds
-
-网络： 从下面的虚拟网络选项选择一种选项 1.provider networks `这个选项不支持私有网络，layer-3服务以及一些高级服务，例如:LBaaS and FWaaS。如果你需要这些服务，请考虑私有网络选项` 2.Self-service networks 每个节点上的单个磁盘分区适用于大多数基本安装。但是，对于具有可选服务（例如块存储）的安装，应考虑使用逻辑卷管理器（LVM）。
 
