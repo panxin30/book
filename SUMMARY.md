@@ -23,6 +23,7 @@
         * [2、Environment](book/notes/openstack/openstack-an-zhuang/environment.md)
         * [3、stein版的最小安装](book/notes/openstack/openstack-an-zhuang/3stein-ban-de-zui-xiao-an-zhuang/README.md)
           * [3.1、keystone installation for Stein](book/notes/openstack/openstack-an-zhuang/3stein-ban-de-zui-xiao-an-zhuang/3.1-keystone-installation-for-stein.md)
+          * [3.2、glance installation for Stein](book/notes/openstack/openstack-an-zhuang/3stein-ban-de-zui-xiao-an-zhuang/3.2-glance-installation-for-stein.md)
   * [Ubuntu](book/ubuntu/README.md)
     * [ubuntu networking](book/ubuntu/ubuntu-networking/README.md)
       * [Network Configuration](book/ubuntu/ubuntu-networking/network-configuration.md)
