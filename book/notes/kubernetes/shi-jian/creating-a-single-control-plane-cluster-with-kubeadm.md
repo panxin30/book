@@ -11,7 +11,9 @@ ingress+k8s+minio+nginx
 * K8S提供微服务
 * minio提供前端
 * nginx转发后端和前端服务
-* ingress作为对外入口80/443，转发到nginx，172.31.27.142:800。使用ingress是因为可以使用cert-manager免费提供证书              
+* ingress作为对外入口80/443，转发到nginx，172.31.27.142:800。使用ingress是因为可以使用cert-manager免费提供证书
+* 亚马逊的负载均衡自带证书，会导致使用了ingree的k8s中的java容器识别不到证书
+* 亚马逊的负载均衡自带证书和直接用nginx转发到k8s中的java容器，不知道会不会还识别不到证书              
 
 ## 一、服务器优化和更新已安装软件包
 
