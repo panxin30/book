@@ -19,23 +19,17 @@ root@cn-office-public-ops01:~# nova --version
 
 ## 1. 架构：
 
+```text
 一个控制节点，一个计算节点和一个网络节点 
-
-os:Ubuntu 18.04.5 LTS \(GNU/Linux 4.15.0-117-generic x86\_64\) 
-
-192.168.0.95 root@test-controller-node01 2C8G 
-
+os:Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-117-generic x86_64) 
+192.168.0.95 root@controller 2C8G 
 必选组件：keystone、glance、compute、networking、dashboard 
-
 可选组件：cinder、swift 
-
-192.168.0.96 root@test-compute-node01 12C32G 
-
+192.168.0.96 root@compute 12C32G 
 组件：compute、networking 
-
-192.168.0.97 root@test-network-node01 2C4G 
-
+192.168.0.97 root@network 2C4G 
 组件：networking
+```
 
 > Note: 该实验环境是单网卡物理机，需求一块物理网卡能够绑定多个 IP 以及多个 MAC 地址，绑定多个 IP 很容易，但是这些 IP 会共享物理网卡的 MAC 地址,所以用物理网卡虚拟化macvlan。该实验instance接口和外网接口用同一个接口 tun 设备用来实现三层隧道（三层 ip 数据报），tap 设备用来实现二层隧道（二层以太网数据帧）
 
@@ -51,9 +45,9 @@ os:Ubuntu 18.04.5 LTS \(GNU/Linux 4.15.0-117-generic x86\_64\)
 
 **controller：管理接口10.0.0.11/24,外网接口192.168.0.95/24,\(网络组件neuron server,ML2 Plug-in\)**
 
-**network：管理接口10.0.0.21/24，instance 通道10.0.1.21/24\(实例之间构建隧道,GRE,VXLAN隧道\),\(网络组件ML2 Plug-in,layer 2 Agent\(ovs\),layer 3 Agent\(主要作用创建netns,在netns中生成规则,在netns中生写iptables的DNAT/SNAT规则\),DHCP Agent\)，外网接口192.168.0.97/24**
+**compute：管理接口10.0.0.21/24，instance 通道10.0.0.21/24\(实例之间构建隧道,GRE,VXLAN隧道\),\(网络组件ML2 Plug-in,layer 2 Agent\(ovs创建桥，创建vlan，构建GRE与network node节点通信\)\)，外网接口192.168.0.96/24**
 
-**compute：管理接口10.0.0.31/24，instance 通道10.0.1.31/24\(实例之间构建隧道,GRE,VXLAN隧道\),\(网络组件ML2 Plug-in,layer 2 Agent\(ovs创建桥，创建vlan，构建GRE与network node节点通信\)\)**
+**network：管理接口10.0.0.31/24，instance 通道10.0.0.31/24\(实例之间构建隧道,GRE,VXLAN隧道\),\(网络组件ML2 Plug-in,layer 2 Agent\(ovs\),layer 3 Agent\(主要作用创建netns,在netns中生成规则,在netns中生写iptables的DNAT/SNAT规则\),DHCP Agent\)，外网接口192.168.0.97/24**
 
 ## 配置网络接口
 
@@ -102,8 +96,16 @@ server 10.28.204.66 iburst
 此模型的好处包括减少外部连接的负载，减少远程NTP服务器的负载，并在外部连接或服务器出现故障时使本地系统彼此同步。 要在配置文件中启用本地服务器，请指定允许连接的网络和子网
 
 ```text
-allow 192.168.2.0/24
-allow 10.0.0.0/8
+root@controller:~# ip route show
+default via 192.168.0.2 dev enp1s0 proto static 
+10.0.0.0/24 dev enp1s0.01 proto kernel scope link src 10.0.0.11 
+192.168.0.0/24 dev enp1s0 proto kernel scope link src 192.168.0.95 
+#######增加配置
+cat /etc/chrony/chrony.conf
+allow 192.168.0.0/24
+allow 10.0.0.0/24
+# 重启
+systemctl restart chronyd.service
 ```
 
 **在客户端，请更新chrony配置以指向新系统，然后重新启动chrony**。 例如，我的服务器位于192.168.2.12，我可以通过添加以下内容来更新配置文件以使用它进行同步： `server 192.168.2.12 iburst` **在客户端验证**
@@ -152,7 +154,7 @@ apt install python3-openstackclient
 
 ## 5. SQL database for Ubuntu
 
-As of Ubuntu 18.04 or 16.04, install the packages: `apt install mariadb-server python-pymysql` Create and edit the **/etc/mysql/mariadb.conf.d/99-openstack.cnf** file and complete the following actions:
+As of Ubuntu 18.04 or 16.04, install the packages: `apt install mysql-server python-pymysql` Create and edit the **/etc/mysql/mysql.conf.d/mysqld.cnf** file and complete the following actions:
 
 ```text
 [mysqld]
@@ -167,7 +169,7 @@ character-set-server = utf8
 
 Secure the database service by running the mysql\_secure\_installation script. In particular, choose a suitable password for the database root account:
 
-`mysql_secure_installation` `systemctl enable mysql.service && systemctl start mysql.service`
+ `systemctl enable mysql.service && systemctl restart mysql.service`
 
 ## 6. 消息队列
 
@@ -179,7 +181,7 @@ rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 # Setting permissions for user "openstack" in vhost "/" ...
 ```
 
-`systemctl enable rabbitmq-server && systemctl start rabbitmq-server`
+`systemctl enable rabbitmq-server && systemctl restart rabbitmq-server`
 
 ## 7. memcached
 
@@ -192,7 +194,7 @@ apt install memcached python-memcache
 -l 10.0.0.11
 ```
 
-`systemctl enable memcached && systemctl start memcached`
+`systemctl enable memcached && systemctl restart memcached`
 
 ## 8. Etcd
 
@@ -214,7 +216,7 @@ ETCD_LISTEN_PEER_URLS="http://0.0.0.0:2380"
 ETCD_LISTEN_CLIENT_URLS="http://10.0.0.11:2379"
 ```
 
-`systemctl enable etcd && systemctl start etcd`
+`systemctl enable etcd && systemctl restart etcd`
 
 #### Object Storage Installation Guide for Stein
 
