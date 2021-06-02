@@ -17,7 +17,27 @@ root@cn-office-public-ops01:~# nova --version
 
 ## 0. 安全
 
-## 1. 架构：
+## 1. 架构：一个控制节点，一个计算节点，一个网络节点
+
+os:Ubuntu 18.04.5 LTS \(GNU/Linux 4.15.0-117-generic x86\_64\)
+
+flat+vxlan
+
+### 一、控制节点：192.168.0.95 root@controller 2C8G
+
+#### 安装组件：mysql,rabbitmq,memcache,etcd,keystone,glance,nova-api,nova-scheduler,nova-conductor,nova-novncproxy,neutron-server,neutron-metadata-agent,dashboard
+
+可选组件：cinder、swift
+
+### 二、计算节点：192.168.0.96 root@compute 12C32G
+
+#### 安装组件：nova-compute,neutron-linuxbridge-agent
+
+### 三、网络节点：192.168.0.97 root@network 2C4G
+
+#### 安装组件：neutron-plugin-ml2，neutron-linuxbridge-agent，neutron-l3-agent，neutron-dhcp-agent，neutron-metadata-agent
+
+
 
 ```text
 一个控制节点，一个计算节点和一个网络节点 
