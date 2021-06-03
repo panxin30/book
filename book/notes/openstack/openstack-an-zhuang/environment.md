@@ -37,20 +37,6 @@ flat+vxlan
 
 #### 安装组件：neutron-plugin-ml2，neutron-linuxbridge-agent，neutron-l3-agent，neutron-dhcp-agent，neutron-metadata-agent
 
-
-
-```text
-一个控制节点，一个计算节点和一个网络节点 
-os:Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-117-generic x86_64) 
-192.168.0.95 root@controller 2C8G 
-必选组件：keystone、glance、compute、networking、dashboard 
-可选组件：cinder、swift 
-192.168.0.96 root@compute 12C32G 
-组件：compute、networking 
-192.168.0.97 root@network 2C4G 
-组件：networking
-```
-
 > Note: 该实验环境是单网卡物理机，需求一块物理网卡能够绑定多个 IP 以及多个 MAC 地址，绑定多个 IP 很容易，但是这些 IP 会共享物理网卡的 MAC 地址,所以用物理网卡虚拟化macvlan。该实验instance接口和外网接口用同一个接口 tun 设备用来实现三层隧道（三层 ip 数据报），tap 设备用来实现二层隧道（二层以太网数据帧）
 
 三台服务器确认是否支持硬件虚拟化 `egrep -c '(vmx|svm)' /proc/cpuinfo` 

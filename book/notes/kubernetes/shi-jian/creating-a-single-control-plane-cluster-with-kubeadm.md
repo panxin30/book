@@ -119,12 +119,14 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELE
 #### 1、增加最大pod数量
 
 ```text
-root@k8smaster ~]# vim /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf 
+root@k8smaster ~]# vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
 添加：
 	Environment="KUBELET_NODE_MAX_PODS=--max-pods=600"
 	ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS $KUBELET_NODE_MAX_PODS
 # 将新添加的参数KUBELET_NODE_MAX_PODS，加入ExecStart
 # 重启kubelet
+# 检查配置是否生效
+ps aux|grep kubelet
 ```
 
 
