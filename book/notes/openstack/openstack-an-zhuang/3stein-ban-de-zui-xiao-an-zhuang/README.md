@@ -1,3 +1,7 @@
+---
+description: 三节点S版Openstack安装
+---
+
 # 3、stein版的最小安装
 
 参考：[https://docs.openstack.org/install-guide/openstack-services.html](https://docs.openstack.org/install-guide/openstack-services.html)
