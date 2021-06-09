@@ -205,3 +205,17 @@ type_drivers = local,flat,vlan,gre,vxlan,geneve
 
 \[agent\] l2\_population = True
 
+
+
+## Openstack的网络模式有5种 
+
+Local模式：一般测试时使用，只需一台物理机即可。 
+
+GRE模式：隧道模式， VLAN数量没有限制，性能有点问题。 
+
+Vlan模式：vlan数量有4096的限制 
+
+VXlan模式：vlan数量没有限制，性能比GRE好。 
+
+Flat模式：管理员创建，租户直接到外网的一种网络模式，不需要NAT。 
+
