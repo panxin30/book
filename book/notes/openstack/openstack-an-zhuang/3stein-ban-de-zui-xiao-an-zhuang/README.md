@@ -23,5 +23,9 @@ We advise to also install the following components after you have installed the 
 
 Dashboard – **horizon installation for Stein**
 
+参考：[https://docs.openstack.org/horizon/stein/install/install-ubuntu.html](https://docs.openstack.org/horizon/stein/install/install-ubuntu.html)
+
 Block Storage service – **cinder installation for Stein**
+
+\*\*\*\*
 
