@@ -39,6 +39,8 @@ VLAN间路由:
 # 容器级的虚拟化，就是利用linux内核提供的资源隔离功能来实现的。
 
 虚拟化技术：
+    IaaS:
+    Paas: docker        
     linux内核：
         namespace：名称空间，完成特定类型资源的隔离
         cgroups：控制组，可以在已经隔离出来的的名称空间中，按比例把资源分配到名称空间中去
@@ -64,6 +66,82 @@ VLAN间路由:
         ovsdb-server:轻量级的数据库服务，主要保存了整个OVS的配置信息
         ovs-vsctl: 用于获取或更改ovs-vswitchd的配置信息，修改操作会保存到ovsdb-server
 
+```
+
+二、netns
+
+```text
+# 创建namespace
+root@network:~# ip netns add r1
+root@network:~# ip netns add r2
+root@network:~# ip netns list
+r2
+r1
+# 创建物理桥
+root@network:~# brctl addbr br-ex
+root@network:~# ip link set br-ex up
+root@network:~# ip a
+2: enp1s0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether f8:bc:12:5a:d5:e1 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.97/24 brd 192.168.0.255 scope global enp1s0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::fabc:12ff:fe5a:d5e1/64 scope link 
+       valid_lft forever preferred_lft forever
+6: br-ex: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/ether 4a:37:86:4e:7a:44 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::4837:86ff:fe4e:7a44/64 scope link 
+       valid_lft forever preferred_lft forever
+# 创建一对虚拟网卡
+root@network:~# ip link add veth1.1 type veth peer name veth1.2
+root@network:~# ip a
+3: veth1.2@veth1.1: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether e6:c6:2b:69:92:eb brd ff:ff:ff:ff:ff:ff
+4: veth1.1@veth1.2: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether e6:0b:ac:a8:d5:21 brd ff:ff:ff:ff:ff:ff
+# 将这对网卡分别添加到r1,r2这两个名称空间
+root@network:~# ip link set veth1.1 netns r1
+root@network:~# ip link set veth1.2 netns r2
+root@network:~# ip netns exec r1 ip a
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+4: veth1.1@if3: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether e6:0b:ac:a8:d5:21 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+root@network:~# ip netns exec r2 ip a
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+3: veth1.2@if4: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether e6:c6:2b:69:92:eb brd ff:ff:ff:ff:ff:ff link-netnsid 0
+#修改名称空间r1,r2中这对网卡ip地址及启用这对网卡
+root@network:~# ip netns exec r1 ip addr add 172.16.0.1/24 dev veth1.1
+root@network:~# ip netns exec r2 ip addr add 172.16.0.2/24 dev veth1.2
+root@network:~# ip netns exec r1 ip link set veth1.1 up
+root@network:~# ip netns exec r2 ip link set veth1.2 up
+root@network:~# ip netns exec r1 ip a
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+4: veth1.1@if3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether e6:0b:ac:a8:d5:21 brd ff:ff:ff:ff:ff:ff link-netnsid 1
+    inet 172.16.0.1/24 scope global veth1.1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e40b:acff:fea8:d521/64 scope link 
+       valid_lft forever preferred_lft forever
+root@network:~# ip netns exec r2 ip a
+1: lo: <LOOPBACK> mtu 65536 qdisc noop state DOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+3: veth1.2@if4: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether e6:c6:2b:69:92:eb brd ff:ff:ff:ff:ff:ff link-netnsid 0
+    inet 172.16.0.2/24 scope global veth1.2
+       valid_lft forever preferred_lft forever
+    inet6 fe80::e4c6:2bff:fe69:92eb/64 scope link 
+       valid_lft forever preferred_lft forever
+root@network:~# ip netns exec r1 ping 172.16.0.2
+PING 172.16.0.2 (172.16.0.2) 56(84) bytes of data.
+64 bytes from 172.16.0.2: icmp_seq=1 ttl=64 time=0.037 ms
+
+
+
+# 
+ip addr del 192.168.0.97/24 dev enp1s0; ip addr add 192.168.0.97/24 dev br-ex; brctl addif br-ex enp1s0
 
 ```
 

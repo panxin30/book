@@ -2,7 +2,7 @@
 
 参考：[https://access.redhat.com/documentation/zh-cn/red\_hat\_enterprise\_linux\_openstack\_platform/7/html/networking\_guide/networking\_overview](https://access.redhat.com/documentation/zh-cn/red_hat_enterprise_linux_openstack_platform/7/html/networking_guide/networking_overview)
 
-## openstack-networking和虚拟网络
+## 一、openstack-networking和虚拟网络
 
     ****软件定义的网络（**Software-defined Networking，简称 SDN**）是一个用来描述虚拟网络功能的术语。虚拟环境中的服务器和物理服务器一样，仍然需要网络连接来接收和发送数据。SDN 通过把网络设备（如路由器和交换机）移到相同的虚拟空间来满足服务器对网络连接功能的要求。
 
@@ -12,7 +12,7 @@
 
     **OpenStack 节点需要使用物理网络架构、IP 地址需要被分配、物理交换机的接口需要进行配置来支持 VLAN**。另外，除了故障排除外，在其它一些情况下也需要虚拟系统团队和网络团队的合作。例如，在调整虚拟机的 MTU 大小时，包括虚拟和物理交换机和路由器在内的所有端点都需要进行设置
 
-## 网络基础
+## 二、网络基础
 
 ### **1.1 网络如何工作**
 
@@ -148,17 +148,17 @@ It includes the following components:
 
 在agents之间接受并路由RPC请求以完成API操作。 Message queue是用于Open vSwitch and Linux bridge的ML2机制驱动程序中的the neutron server和在每个虚拟机管理程序上运行的neutron agents之间的RPC的ML2插件中使用。
 
-## 概念
+## 三、概念
 
 要配置丰富的网络拓扑，**您可以创建和配置网络和子网，并指示其他OpenStack服务（如Compute）将虚拟设备连接到这些网络上的端口。** 网络有两种类型，project and provider networks。作为网络创建过程的一部分，可以在项目之间共享任何类型的网络。
 
-## Provider networks
+## 四、Provider networks
 
 Provider networks通过对DHCP和元数据服务的可选支持，**提供了到实例的第二层连接。这些网络通常使用VLAN（802.1q）标记来识别或分隔它们，以连接或映射到数据中心中的现有第2层网络。**
 
 Provider networks 通常以灵活性为代价提供简单性，性能和可靠性。**默认情况下，只有管理员才能创建或更新provider networks，因为他们需要配置物理网络基础结构。**可以使用以下参数更改允许创建或更新提供商网络的用户 policy.json
 
-## Self-service networks
+## 五、Self-service networks
 
 自助服务网络主要使一般（非特权）项目可以管理网络，而无需管理员参与。**这些网络完全是虚拟的，需要虚拟路由器与提供商和外部网络（例如Internet）进行交互**。自助服务网络通常还为实例提供DHCP和元数据服务。
 

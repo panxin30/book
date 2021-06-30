@@ -25,7 +25,11 @@ flat+vxlan
 
 ### 一、控制节点：192.168.0.95 root@controller 2C8G
 
-#### 安装组件：mysql,rabbitmq,memcache,etcd,keystone,glance,nova-api,nova-scheduler,nova-conductor,nova-novncproxy,neutron-server,neutron-metadata-agent,dashboard
+#### 安装组件：
+
+#### mysql,rabbitmq,memcache,etcd,keystone,glance,nova-api,nova-scheduler,nova-conductor,nova-novncproxy
+
+#### neutron-server,neutron-metadata-agent,dashboard
 
 可选组件：cinder、swift
 
