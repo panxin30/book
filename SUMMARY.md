@@ -8,6 +8,7 @@
     * [kubernetes](book/notes/kubernetes/README.md)
       * [实践](book/notes/kubernetes/shi-jian/README.md)
         * [Creating a single control-plane cluster with kubeadm](book/notes/kubernetes/shi-jian/creating-a-single-control-plane-cluster-with-kubeadm.md)
+        * [Creating a single control-plane cluster with kubeadm](book/notes/kubernetes/shi-jian/creating-a-single-control-plane-cluster-with-kubeadm-1.md)
     * [Openstack](book/notes/openstack/README.md)
       * [openstack基础](book/notes/openstack/openstack-ji-chu/README.md)
         * [网络虚拟化技术基础](book/notes/openstack/openstack-ji-chu/wang-luo-xu-ni-hua-ji-shu-ji-chu.md)
