@@ -28,7 +28,7 @@ This section contains the necessary steps to use containerd as CRI runtime.
 
 Use the following commands to install Containerd on your system:
 
-Install and configure prerequisites:
+**Install and configure prerequisites:**
 
 ```text
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
@@ -50,7 +50,21 @@ EOF
 sudo sysctl --system
 ```
 
+**Install containerd:**
 
+1. Install the `containerd.io` package from the official Docker repositories. Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at [Install Docker Engine](https://docs.docker.com/engine/install/#server).  \(因为系统是ubuntu，所以点击ubuntu选项\)
+2. Configure containerd:
+
+   ```text
+   sudo mkdir -p /etc/containerd
+   containerd config default | sudo tee /etc/containerd/config.toml
+   ```
+
+3. Restart containerd:
+
+   ```text
+   sudo systemctl restart containerd
+   ```
 
 #### 3.Installing kubeadm, kubelet and kubectl
 
