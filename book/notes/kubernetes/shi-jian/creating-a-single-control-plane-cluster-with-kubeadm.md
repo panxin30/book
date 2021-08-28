@@ -51,13 +51,13 @@ net.ipv4.tcp_timestamps = 0
 
 ### 安装参考文档
 
-* [Docker 官方 Ubuntu 安装文档](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
+* Docker 官方 Ubuntu 安装文档
 
 ### 安装指定版本docker-ce
 
 ```text
 apt-cache madison docker-ce
-sudo apt-get install docker-ce=18.06.1~ce~3-0~ubuntu
+sudo apt install docker-ce=18.06.1~ce~3-0~ubuntu
 ```
 
 ### 根据需求修改docker驱动
@@ -119,12 +119,14 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELE
 #### 1、增加最大pod数量
 
 ```text
-root@k8smaster ~]# vim /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf 
+root@k8smaster ~]# vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
 添加：
 	Environment="KUBELET_NODE_MAX_PODS=--max-pods=600"
 	ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS $KUBELET_NODE_MAX_PODS
 # 将新添加的参数KUBELET_NODE_MAX_PODS，加入ExecStart
 # 重启kubelet
+# 检查配置是否生效
+ps aux|grep kubelet
 ```
 
 
@@ -170,4 +172,17 @@ cat /etc/kubernetes/manifests/kube-apiserver.yaml
 #### externalIPs 通过svc创建,在指定的node上监听端口
 
 ### worker节点加入集群
+
+### worker节点的kubelet开启自证书动续期，未验证
+
+参考：[https://blog.csdn.net/qq\_34556414/article/details/114057422](https://blog.csdn.net/qq_34556414/article/details/114057422)
+
+参考：[https://cloud.tencent.com/developer/article/1638399](https://cloud.tencent.com/developer/article/1638399)
+
+集群分为两种证书：一、用于集群 `Master、Etcd`等通信的证书。二、用于集群 `Kubelet` 组件证书  
+集群运行1年以后就会导致报 `certificate has expired or is not yet valid` 错误，导致`集群 Node`不能和`集群 Master`正常通信。
+
+这种方法只用于worker节点的kubelet与master节点通信
+
+### master节点的证书还是得一年一处理
 
