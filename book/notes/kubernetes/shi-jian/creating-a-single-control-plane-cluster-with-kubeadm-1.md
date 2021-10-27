@@ -18,11 +18,11 @@ ubuntu 18.04,k8s 1.22, runtime
 
 #### **1.Letting iptables see bridged traffic**
 
-Make sure that the `br_netfilter` module is loaded. This can be done by running `lsmod | grep br_netfilter`. 
+Make sure that the `br_netfilter` module is loaded. This can be done by running `lsmod | grep br_netfilter`.&#x20;
 
 #### 2.Installing runtime
 
-参考：[https://kubernetes.io/docs/setup/production-environment/container-runtimes/\#containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)
+参考：[https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd](https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd)
 
 This section contains the necessary steps to use containerd as CRI runtime.
 
@@ -30,7 +30,7 @@ Use the following commands to install Containerd on your system:
 
 **Install and configure prerequisites:**
 
-```text
+```
 cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
@@ -52,19 +52,18 @@ sudo sysctl --system
 
 **Install containerd:**
 
-1. Install the `containerd.io` package from the official Docker repositories. Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at [Install Docker Engine](https://docs.docker.com/engine/install/#server).  \(因为系统是ubuntu，所以点击ubuntu选项\)
-2. Configure containerd:
+1. Install the `containerd.io` package from the official Docker repositories. Instructions for setting up the Docker repository for your respective Linux distribution and installing the `containerd.io` package can be found at [Install Docker Engine](https://docs.docker.com/engine/install/#server).  (因为系统是ubuntu，所以点击ubuntu选项)
+2.  Configure containerd:
 
-   ```text
-   sudo mkdir -p /etc/containerd
-   containerd config default | sudo tee /etc/containerd/config.toml
-   ```
+    ```
+    sudo mkdir -p /etc/containerd
+    containerd config default | sudo tee /etc/containerd/config.toml
+    ```
+3.  Restart containerd:
 
-3. Restart containerd:
-
-   ```text
-   sudo systemctl restart containerd
-   ```
+    ```
+    sudo systemctl restart containerd
+    ```
 
 #### 3.Installing kubeadm, kubelet and kubectl
 
@@ -73,4 +72,3 @@ sudo sysctl --system
 Both the container runtime and the kubelet have a property called ["cgroup driver"](https://kubernetes.io/docs/setup/production-environment/container-runtimes/), which is important for the management of cgroups on Linux machines.
 
 >
-

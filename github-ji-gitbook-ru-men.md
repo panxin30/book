@@ -10,8 +10,8 @@ description: >-
 
 #### 创建个人主页
 
-GitHub 为每一个用户分配了一个二级域名&lt;user-id&gt;.github.io，用户为自己的二级域名创建主页很容易，只要在托管空间下创建一个名为&lt;user-id&gt;.github.io的版本库，向其master分支提交网站静态页面即可，其中网站首页为index.html。  
-访问网址：[https://panxin30.github.io/](https://panxin30.github.io/)
+GitHub 为每一个用户分配了一个二级域名\<user-id>.github.io，用户为自己的二级域名创建主页很容易，只要在托管空间下创建一个名为\<user-id>.github.io的版本库，向其master分支提交网站静态页面即可，其中网站首页为index.html。\
+访问网址：[https://panxin30.github.io/](https://panxin30.github.io)
 
 #### 创建项目主页
 
@@ -19,11 +19,11 @@ GitHub 为每一个用户分配了一个二级域名&lt;user-id&gt;.github.io，
 
 访问地址：[https://panxin30.github.io/book/](https://panxin30.github.io/book/)
 
-为项目启用项目主页很简单，只需要在项目版本库中创建一个名为gh-pages的分支，并向其中添加静态网页即可。也就是说如果项目的Git版本库中包含了名为gh-pages分支的话，则表明该项目提供静态网页构成的主页，可以通过网址http://&lt;user-id&gt;[.github.io/](http://.github.io/)&lt;project-name&gt;访问到。
+为项目启用项目主页很简单，只需要在项目版本库中创建一个名为gh-pages的分支，并向其中添加静态网页即可。也就是说如果项目的Git版本库中包含了名为gh-pages分支的话，则表明该项目提供静态网页构成的主页，可以通过网址http://\<user-id>[.github.io/](http://.github.io)\<project-name>访问到。
 
 创建gh-pages分支后，还需要在book这个仓库的settings中启用github pages
 
-![](.gitbook/assets/image%20%282%29.png)
+![](<.gitbook/assets/image (2).png>)
 
 ## 二、gitbook
 
@@ -33,13 +33,13 @@ GitHub 为每一个用户分配了一个二级域名&lt;user-id&gt;.github.io，
 
 #### 2. 如果被墙，切换为淘宝镜像再安装
 
-*  切换为使用国内速度较快的淘宝镜像。
+* &#x20;切换为使用国内速度较快的淘宝镜像。
 
-```text
+```
 npm config set registry=http://registry.npm.taobao.org -g
 ```
 
-3. 开始写书
+3\. 开始写书
 
 **方法一**、直接在gitbook上新建space，然后点击integrations，整合github其中一个仓库，编辑gitbook会自动同步到github对应仓库。担心是gitbook被墙，在国内访问较慢。数据不会丢，因为用的github仓库存储。github上可以直接编辑 [https://abu.gitbook.io/notes](https://abu.gitbook.io/notes)
 
@@ -57,7 +57,7 @@ npm config set registry=http://registry.npm.taobao.org -g
 
 **2. 产生一个GitHub Personal Access Token：**
 
-1. 点右上角帐号的头像-&gt;选择`Settings`-&gt;左边列表选择最底下的`Developer settings`-&gt;下个页面的左边列表选择`Personal access tokens`。
+1. 点右上角帐号的头像->选择`Settings`->左边列表选择最底下的`Developer settings`->下个页面的左边列表选择`Personal access tokens`。
 2. 点击`Generate new token`按钮。
 3. 输入Token的描述，权限勾选`repo:status`和`public_repo`两个项目。
 4. 点最下面的`Generate token`按钮。
@@ -65,7 +65,7 @@ npm config set registry=http://registry.npm.taobao.org -g
 
 **3. 到Repository 将刚刚的Token 设定成Secret：**
 
-1. 到想要自动发布的Repository -&gt;选择`Settings`-&gt;左边列表选则`Secrets`-&gt;点`New secret`按钮。
+1. 到想要自动发布的Repository ->选择`Settings`->左边列表选则`Secrets`->点`New secret`按钮。
 2. 「Name」栏位填`GH_ACCESS_TOKEN`，「Value」栏位贴上刚刚复制的Token。
 3. 点`Add secret`按钮，设定就完成了。
 
@@ -75,14 +75,14 @@ npm config set registry=http://registry.npm.taobao.org -g
 
 回到资料夹，新增一个`.github/workflows/build.yml`档案：
 
-```text
+```
 $ mkdir -p .github/workflows
 $ vi .github/workflows/build.yml
 ```
 
 这里完全照抄即可，只需要把`USER_NAME`和`USER_EMAIL`设定更换成你的Git User Name和Email：
 
-```text
+```
 name: Build my gitbook and deploy to gh-pages                                                                                            
   
 on:
@@ -114,7 +114,7 @@ jobs:
 
 将刚刚新增的workflow 档进行commit 和push：
 
-```text
+```
 $ git add .github/workflows/build.yml
 $ git commit -m "add workflow file"
 $ git push
@@ -122,7 +122,7 @@ $ git push
 
 回到GitHub Repository 页面，点「Actions」tab，会看到有一个workflow 任务被自动触发执行中：
 
-![](.gitbook/assets/image%20%281%29.png)
+![](<.gitbook/assets/image (1).png>)
 
 等到执行完毕变成绿勾勾，会看到自动建立了`gh-pages`branch并commit GitBook静态网站的档案：
 
@@ -134,17 +134,17 @@ gitbook插件可以解决一些网站不太方便的地方，如侧边栏导航�
 
 插件安装、使用方法：
 
-> 1、 在`book.json`的plugins参数中添加插件名。  
-> 2、终端使用`gitbook install`来安装插件，或使用NPM命令来单独安装：`npm install gitbook-plugin-插件名`。  
+> 1、 在`book.json`的plugins参数中添加插件名。\
+> 2、终端使用`gitbook install`来安装插件，或使用NPM命令来单独安装：`npm install gitbook-plugin-插件名`。\
 > 3、重新打包就能看见效果。
 
-_**注意：**_  
-1、插件一定先要在`book.json`文件里面plugins中才能生效，如果只是安装了插件，而没配置的话是不会生效的。  
+_**注意：**_\
+1、插件一定先要在`book.json`文件里面plugins中才能生效，如果只是安装了插件，而没配置的话是不会生效的。\
 2、gitbook命令安装慢，而且是全部插件都安装一遍，如果只安装一个插件的话建议使用NPM命令安装。
 
 还有很多可用插件，具体如下：
 
-1. 信息框\(`flexible-alerts`\)
+1. 信息框(`flexible-alerts`)
 2. 阅读统计（`pageview-count`）
 3. 侧边栏宽度可调节（`splitter`）
 4. 页脚版权（`page-copyright`）
@@ -168,19 +168,19 @@ _**注意：**_
 
 **2.2.1 chapter-fold**
 
-支持多层目录，点击导航栏的标题名就可以实现折叠扩展。  
+支持多层目录，点击导航栏的标题名就可以实现折叠扩展。\
 在`book.json`的plugins参数中添加插件名：
 
-```text
+```
 {
     "plugins": ["chapter-fold"]
 }
 ```
 
-然后使用`npm install gitbook-plugin-chapter-fold`命令安装插件。  
+然后使用`npm install gitbook-plugin-chapter-fold`命令安装插件。\
 _**注意：**_要想目录折叠，`SUMMARY.md`目录应该如下：
 
-```text
+```
 * [项目介绍](README.md)
 
 * [tcp说明](doc/http/tcp/tcp说明.md)
@@ -191,17 +191,17 @@ _**注意：**_要想目录折叠，`SUMMARY.md`目录应该如下：
 
 如下写法会产生bug，导致CSS是收缩的，不能展开，效果如上面的动图：
 
-```text
+```
 * CSS 
     * [说明](doc/css/readme.md)
 ```
 
 **2.2.2 expandable-chapters**
 
-这个插件也是左侧目录折叠的插件，不同的是可以解决`chapter-fold`插件的bug，怎么写都会折叠目录  
+这个插件也是左侧目录折叠的插件，不同的是可以解决`chapter-fold`插件的bug，怎么写都会折叠目录\
 在`book.json`的plugins参数中添加插件名：
 
-```text
+```
 {
     "plugins": [
          "expandable-chapters"
@@ -209,17 +209,17 @@ _**注意：**_要想目录折叠，`SUMMARY.md`目录应该如下：
 }
 ```
 
-安装命令：`npm install gitbook-plugin-expandable-chapters`  
+安装命令：`npm install gitbook-plugin-expandable-chapters`\
 _**注意：**_这个插件也有问题，就是如下写法的，需要点击箭头才能展开收缩菜单：
 
-```text
+```
 * [tcp说明](doc/http/tcp/tcp说明.md)
     * [udp说明](doc/http/tcp/udp/udp说明.md)
 ```
 
 解决的办法是和`chapter-fold`插件一起用，互补一下各自的问题就完美解决了：
 
-```text
+```
 "plugins": [
     "expandable-chapters",
     "chapter-fold",
@@ -230,7 +230,7 @@ _**注意：**_这个插件也有问题，就是如下写法的，需要点击�
 
 在`book.json`的plugins参数中添加插件名和配置信息：
 
-```text
+```
 {
     "plugins": [
         "back-to-top-button"
@@ -244,7 +244,7 @@ _**注意：**_这个插件也有问题，就是如下写法的，需要点击�
 
 在`book.json`的plugins参数中添加插件名和配置信息：
 
-```text
+```
 {
     "plugins": [ 
         "github" 
@@ -257,17 +257,17 @@ _**注意：**_这个插件也有问题，就是如下写法的，需要点击�
 }
 ```
 
-然后使用`npm install gitbook-plugin-github`命令安装插件。  
-_**注意：**_  
-如果使用npm命令安装后报错`GitBook doesn't satisfy the requirements of this plugin: >=4.0.0-alpha.0`.  
-请使用`gitbook install`来安装.  
+然后使用`npm install gitbook-plugin-github`命令安装插件。\
+_**注意：**_\
+如果使用npm命令安装后报错`GitBook doesn't satisfy the requirements of this plugin: >=4.0.0-alpha.0`.\
+请使用`gitbook install`来安装.\
 或者`npm uninstall gitbook-plugin-github`卸载后，使用`npm i gitbook-plugin-github@2.0.0`安装，然后查看是否还报错。
 
 #### 3.3 edit-link在线编辑文件
 
 `book.json`中插件名和配置信息：
 
-```text
+```
 {
     "plugins": ["edit-link"],
     "pluginsConfig": {
@@ -283,13 +283,13 @@ _**注意：**_
 
 点击编辑按钮，即可跳转到github仓库在线编辑这个文件。
 
-#### 3.6 prism代码块颜色插件\(测试没有通过\)
+#### 3.6 prism代码块颜色插件(测试没有通过)
 
-插件地址：[https://github.com/gaearon/gi...](https://github.com/gaearon/gitbook-plugin-prism)  
-此插件需要禁用gitbook自带的`highlight`插件。  
+插件地址：[https://github.com/gaearon/gi...](https://github.com/gaearon/gitbook-plugin-prism)\
+此插件需要禁用gitbook自带的`highlight`插件。\
 `book.json`中插件名和配置信息：
 
-```text
+```
 {
     "plugins": ["prism", "-highlight"],
     "pluginsConfig": {
@@ -302,9 +302,8 @@ _**注意：**_
 }
 ```
 
-使用`npm install gitbook-plugin-prism`命令安装插件。  
-  
+使用`npm install gitbook-plugin-prism`命令安装插件。\
+\
 更多的颜色参考：[https://github.com/gaearon/gi...](https://github.com/gaearon/gitbook-plugin-prism)
 
 _**注意：**_代码块的语言标注比如`JS`,`CSS`,如果标注一个插件不认识的语言，在运行打包命令`gitbook build .`这个插件会报错，提示不认识这个语言，这里需要注意一下。
-

@@ -1,12 +1,12 @@
 ---
-description: '参考：https://docs.openstack.org/install-guide/'
+description: 参考：https://docs.openstack.org/install-guide/
 ---
 
 # 2、Environment
 
 #### openstack 查看版本
 
-```text
+```
 root@cn-office-public-ops01:~# nova-manage version
 19.0.1
 root@cn-office-public-ops01:~# nova --version
@@ -19,7 +19,7 @@ root@cn-office-public-ops01:~# nova --version
 
 ## 1. 架构：一个控制节点，一个计算节点，一个网络节点
 
-os:Ubuntu 18.04.5 LTS \(GNU/Linux 4.15.0-117-generic x86\_64\)
+os:Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-117-generic x86\_64)
 
 flat+vxlan
 
@@ -43,7 +43,7 @@ flat+vxlan
 
 > Note: 该实验环境是单网卡物理机，需求一块物理网卡能够绑定多个 IP 以及多个 MAC 地址，绑定多个 IP 很容易，但是这些 IP 会共享物理网卡的 MAC 地址,所以用物理网卡虚拟化macvlan。该实验instance接口和外网接口用同一个接口 tun 设备用来实现三层隧道（三层 ip 数据报），tap 设备用来实现二层隧道（二层以太网数据帧）
 
-三台服务器确认是否支持硬件虚拟化 `egrep -c '(vmx|svm)' /proc/cpuinfo` 
+三台服务器确认是否支持硬件虚拟化 `egrep -c '(vmx|svm)' /proc/cpuinfo`&#x20;
 
 ## 2. 主机网络：
 
@@ -51,23 +51,23 @@ flat+vxlan
 
 #### self-service networks
 
-增加了启用 self-service\`覆盖分段方法的layer-3（路由）服务，比如 : VXLAN。本质上，它使用 : NAT路由虚拟网络到物理网络。另外，这个选项也提供高级服务的基础，比如LBaas和FWaaS。 管理接口不需要网关 
+增加了启用 self-service\`覆盖分段方法的layer-3（路由）服务，比如 : VXLAN。本质上，它使用 : NAT路由虚拟网络到物理网络。另外，这个选项也提供高级服务的基础，比如LBaas和FWaaS。 管理接口不需要网关&#x20;
 
-**controller：管理接口10.0.0.11/24,外网接口192.168.0.95/24,\(网络组件neuron server,ML2 Plug-in\)**
+**controller：管理接口10.0.0.11/24,外网接口192.168.0.95/24,(网络组件neuron server,ML2 Plug-in)**
 
-**compute：管理接口10.0.0.21/24，instance 通道10.0.0.21/24\(实例之间构建隧道,GRE,VXLAN隧道\),\(网络组件ML2 Plug-in,layer 2 Agent\(ovs创建桥，创建vlan，构建GRE与network node节点通信\)\)，外网接口192.168.0.96/24**
+**compute：管理接口10.0.0.21/24，instance 通道10.0.0.21/24(实例之间构建隧道,GRE,VXLAN隧道),(网络组件ML2 Plug-in,layer 2 Agent(ovs创建桥，创建vlan，构建GRE与network node节点通信))，外网接口192.168.0.96/24**
 
-**network：管理接口10.0.0.31/24，instance 通道10.0.0.31/24\(实例之间构建隧道,GRE,VXLAN隧道\),\(网络组件ML2 Plug-in,layer 2 Agent\(ovs\),layer 3 Agent\(创建虚拟路由器，基于netns实现的,在netns中生成规则,在netns中生写iptables的DNAT/SNAT规则\),DHCP Agent\)，外网接口192.168.0.97/24**
+**network：管理接口10.0.0.31/24，instance 通道10.0.0.31/24(实例之间构建隧道,GRE,VXLAN隧道),(网络组件ML2 Plug-in,layer 2 Agent(ovs),layer 3 Agent(创建虚拟路由器，基于netns实现的,在netns中生成规则,在netns中生写iptables的DNAT/SNAT规则),DHCP Agent)，外网接口192.168.0.97/24**
 
 ## 配置网络接口
 
-服务器一般都是多网卡,\(**多网卡聚合把多个网络端口绑定到一个IP地址**，可以提高网络总带宽和容错能力。\)
+服务器一般都是多网卡,(**多网卡聚合把多个网络端口绑定到一个IP地址**，可以提高网络总带宽和容错能力。)
 
 > Note: 该实验环境是单网卡物理机，需求一块物理网卡能够绑定多个 IP 以及多个 MAC 地址，绑定多个 IP 很容易，但是这些 IP 会共享物理网卡的 MAC 地址,所以用物理网卡虚拟化macvlan。该实验instance接口和外网接口用同一个接口 tun 设备用来实现三层隧道（三层 ip 数据报），tap 设备用来实现二层隧道（二层以太网数据帧）
 
 **重启会失效**
 
-```text
+```
    41  ip link add link enp1s0 dev enp1s0.01 type macvlan
    42  ip link set enp1s0.01 up
    43  ip addr add 10.0.0.11/24 dev enp1s0.01
@@ -84,7 +84,7 @@ flat+vxlan
 
 在生产环境中，其网络都是内网结构，那么内网如何保证服务器之间的时间同步呢？其实这个问题很简单，只需要搭建一台内网时间服务器，然后让所有计算机都到服务端（10.28.204.66）去同步时间即可。 具体操作：**在服务端注释以下内容**：
 
-```text
+```
 #server 0.centos.pool.ntp.org iburst
 #server 1.centos.pool.ntp.org iburst
 #server 2.centos.pool.ntp.org iburst
@@ -105,7 +105,7 @@ server 10.28.204.66 iburst
 
 此模型的好处包括减少外部连接的负载，减少远程NTP服务器的负载，并在外部连接或服务器出现故障时使本地系统彼此同步。 要在配置文件中启用本地服务器，请指定允许连接的网络和子网
 
-```text
+```
 root@controller:~# ip route show
 default via 192.168.0.2 dev enp1s0 proto static 
 10.0.0.0/24 dev enp1s0.01 proto kernel scope link src 10.0.0.11 
@@ -120,7 +120,7 @@ systemctl restart chronyd.service
 
 **在客户端，请更新chrony配置以指向新系统，然后重新启动chrony**。 例如，我的服务器位于192.168.2.12，我可以通过添加以下内容来更新配置文件以使用它进行同步： `server 192.168.2.12 iburst` **在客户端验证**
 
-```text
+```
 root@test-network-node01:~# chronyc activity
 200 OK
 1 sources online
@@ -137,7 +137,7 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 
 **在服务器上，使用以下clients命令验证客户端列表**
 
-```text
+```
 root@test-controller-node01:~# sudo chronyc clients
 Hostname                      NTP   Drop Int IntL Last     Cmd   Drop Int  Last
 ===============================================================================
@@ -155,7 +155,7 @@ test-compute-node01             9      0   6   -     7       0      0   -     -
 
 ### **4.2 Finalize the installation**
 
-```text
+```
 #Upgrade packages on all nodes
 apt update && apt dist-upgrade
 #Install the OpenStack client
@@ -166,7 +166,7 @@ apt install python3-openstackclient
 
 As of Ubuntu 18.04 or 16.04, install the packages: `apt install mysql-server python-pymysql` Create and edit the **/etc/mysql/mysql.conf.d/mysqld.cnf** file and complete the following actions:
 
-```text
+```
 [mysqld]
 bind-address = 10.0.0.11 #控制节点的管理网络IP地址以使得其它节点可以通过管理网络访问数据库
 
@@ -179,11 +179,11 @@ character-set-server = utf8
 
 Secure the database service by running the mysql\_secure\_installation script. In particular, choose a suitable password for the database root account:
 
- `systemctl enable mysql.service && systemctl restart mysql.service`
+&#x20;`systemctl enable mysql.service && systemctl restart mysql.service`
 
 ## 6. 消息队列
 
-```text
+```
 apt install rabbitmq-server
 rabbitmqctl add_user openstack RABBIT_PASS
 # Creating user "openstack" ...
@@ -197,7 +197,7 @@ rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 
 在生产部署中，推荐联合启用防火墙、认证和加密保证它的安全。 Install the packages:
 
-```text
+```
 apt install memcached python-memcache
 ### Edit the /etc/memcached.conf file and configure the service to use the management IP address of the controller node. This is to enable access by other nodes via the management network:
 
@@ -214,7 +214,7 @@ apt install memcached python-memcache
 
 Edit the /etc/default/etcd file and set the ETCD\_INITIAL\_CLUSTER, ETCD\_INITIAL\_ADVERTISE\_PEER\_URLS, ETCD\_ADVERTISE\_CLIENT\_URLS, ETCD\_LISTEN\_CLIENT\_URLS to the management IP address of the controller node to enable access by other nodes via the management network:
 
-```text
+```
 ETCD_NAME="controller"
 ETCD_DATA_DIR="/var/lib/etcd"
 ETCD_INITIAL_CLUSTER_STATE="new"
@@ -231,4 +231,3 @@ ETCD_LISTEN_CLIENT_URLS="http://10.0.0.11:2379"
 #### Object Storage Installation Guide for Stein
 
 [https://docs.openstack.org/swift/stein/install/](https://docs.openstack.org/swift/stein/install/)
-

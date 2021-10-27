@@ -11,4 +11,3 @@
 **第五**要学好Python语言，众所周知，OpenStack的源码是由Python所写，所以学会Python对阅读源码有好处，处理问题会更准备。
 
 **最后**学习OpenStack的排错逻辑和方法，便于后期在运维OpenStack的过程中，定位问题及解决问题。
-

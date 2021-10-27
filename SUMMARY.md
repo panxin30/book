@@ -5,6 +5,9 @@
 * [github及gitbook入门](github-ji-gitbook-ru-men.md)
 * [Book](book/README.md)
   * [notes](book/notes/README.md)
+    * [Middleware](book/notes/middleware/README.md)
+      * [tinc](book/notes/middleware/tinc/README.md)
+        * [tinc 预备知识](book/notes/middleware/tinc/tinc-yu-bei-zhi-shi.md)
     * [kubernetes](book/notes/kubernetes/README.md)
       * [实践](book/notes/kubernetes/shi-jian/README.md)
         * [Creating a single control-plane cluster with kubeadm](book/notes/kubernetes/shi-jian/creating-a-single-control-plane-cluster-with-kubeadm.md)
@@ -60,4 +63,3 @@
     * [S](book/untitled/s.md)
     * [T](book/untitled/t.md)
     * [V](book/untitled/v.md)
-

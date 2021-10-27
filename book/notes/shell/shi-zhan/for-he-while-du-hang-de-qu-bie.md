@@ -2,7 +2,7 @@
 
 
 
-```text
+```
 $ cat file  
 aaaa  
 bbbb  
@@ -19,4 +19,3 @@ bbbb
 cccc  
 dddd
 ```
-

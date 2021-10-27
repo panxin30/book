@@ -4,17 +4,17 @@
 
 \# 恢复mysql，dump其中一部分数据
 
-\#\#\# mysql数据库较大，下载解压4小时左右
+\### mysql数据库较大，下载解压4小时左右
 
 1.在备份机root@ali-hk-lw-databackup上有每天的备份,已经安装了mysql5.7.28和mongo3.4.19,Percona XtraBackup2.4
 
 2.下载备份
 
-\`wget -c '&lt;数据备份文件外网或内网下载地址&gt;' -O &lt;自定义文件名&gt;.tar.gz\`
+\`wget -c '<数据备份文件外网或内网下载地址>' -O <自定义文件名>.tar.gz\`
 
 3.解压
 
-\`tar -izxvf &lt;数据备份文件名&gt;.tar.gz -C /data/restore/mysql\`
+\`tar -izxvf <数据备份文件名>.tar.gz -C /data/restore/mysql\`
 
 4.执行如下命令，恢复解压好的备份文件。
 
@@ -54,11 +54,11 @@
 
 \`mysqld --defaults-file=/data/restore/mysql/backup-my.cnf --user=mysql --datadir=/data/restore/mysql &\`
 
-\#\#\# 结果报错
+\### 结果报错
 
-\#\# Can't change dir to '/xxx' \(Errcode: 13\)，Permission denied，真是奇怪，所属已经改了的
+\## Can't change dir to '/xxx' (Errcode: 13)，Permission denied，真是奇怪，所属已经改了的
 
-\#\# 最后处理办法，\*\*将restore也修改所属为mysql\*\*
+\## 最后处理办法，\*\*将restore也修改所属为mysql\*\*
 
 8.\*\*导出需要的数据，再恢复到生产环境\*\*。
 
@@ -66,9 +66,9 @@
 
 或者用命令启动确认没有问题后，再修改/etc/my.cnf中数据库目录，直接使用这个配置启动
 
-\# mongodb 恢复  
+\# mongodb 恢复 &#x20;
 
-\#\#\# \*\*目前7天前的备份存储在oss中，需要先解冻再用 wget -c -O 下载，再恢复\*\*
+\### \*\*目前7天前的备份存储在oss中，需要先解冻再用 wget -c -O 下载，再恢复\*\*
 
 \*\*最好用docker run一个mongo，想要什么版本就什么版本\*\*
 
@@ -78,7 +78,7 @@
 
 1.下载阿里云mongodb物理备份
 
-\`wget -c '&lt;数据备份文件外网或内网下载地址&gt;' -O &lt;自定义文件名&gt;.tar.gz\`
+\`wget -c '<数据备份文件外网或内网下载地址>' -O <自定义文件名>.tar.gz\`
 
 2.解压到指定目录
 
@@ -97,4 +97,3 @@
 \`mongo 127.0.0.1:27017/owsc -uowsc -pDS3x8mHP\`
 
 6，dump需要的数据，再恢复到生产。
-
