@@ -16,7 +16,7 @@
 
 •	最后一次对整个平台进行更新的内容是什么（代码、服务器等）？
 
-•	故障影响的特定用户群是什么样的\(已登录的, 退出的, 某个地域的…\)?
+•	故障影响的特定用户群是什么样的(已登录的, 退出的, 某个地域的…)?
 
 •	基础架构（物理的、逻辑的）的文档是否能找到?
 
@@ -28,15 +28,16 @@
 
 ## 二、有谁在?
 
-1.	$ w 
+1\.	$ w&#x20;
 
-2.	$ last 
+2\.	$ last&#x20;
 
 用这两个命令看看都有谁在线，有哪些用户访问过。这不是什么关键步骤，不过最好别在其他用户正干活的时候来调试系统。有道是一山不容二虎嘛。（ne cook in the kitchen is enough.）
 
-## 三、之前发生了什么?
+三、之前发生了什么?
 
-1.	$ history 
+
+1\.	$ history&#x20;
 
 查看一下之前服务器上执行过的命令。看一下总是没错的，加上前面看的谁登录过的信息，应该有点用。另外作为admin要注意，不要利用自己的权限去侵犯别人的隐私哦。
 
@@ -46,9 +47,9 @@
 
 四、现在在运行的进程是啥?
 
-1.	$ pstree -a 
+1\.	$ pstree -a&#x20;
 
-2.	$ ps aux 
+2\.	$ ps aux&#x20;
 
 这都是查看现有进程的。 ps aux 的结果比较杂乱， pstree -a 的结果比较简单明了，可以看到正在运行的进程及相关用户。
 
@@ -56,11 +57,11 @@
 
 五、监听的网络服务
 
-1.	$ netstat -ntlp 
+1\.	$ netstat -ntlp&#x20;
 
-2.	$ netstat -nulp 
+2\.	$ netstat -nulp&#x20;
 
-3.	$ netstat -nxlp 
+3\.	$ netstat -nxlp&#x20;
 
 我一般都分开运行这三个命令，不想一下子看到列出一大堆所有的服务。netstat -nalp倒也可以。不过我绝不会用 numeric 选项 （鄙人一点浅薄的看法：IP 地址看起来更方便）。
 
@@ -74,13 +75,13 @@
 
 六、CPU 和内存
 
-1.	$ free -m 
+1\.	$ free -m&#x20;
 
-2.	$ uptime 
+2\.	$ uptime&#x20;
 
-3.	$ top 
+3\.	$ top&#x20;
 
-4.	$ htop 
+4\.	$ htop&#x20;
 
 注意以下问题:
 
@@ -96,7 +97,7 @@
 
 有很多服务器还是裸机状态，可以看一下：
 
-•	找到RAID 卡 \(是否带BBU备用电池?\)、 CPU、空余的内存插槽。根据这些情况可以大致了解硬件问题的来源和性能改进的办法。
+•	找到RAID 卡 (是否带BBU备用电池?)、 CPU、空余的内存插槽。根据这些情况可以大致了解硬件问题的来源和性能改进的办法。
 
 •	网卡是否设置好? 是否正运行在半双工状态? 速度是10MBps? 有没有 TX/RX 报错?
 
@@ -104,19 +105,19 @@
 
 八、IO 性能
 
-1.	$ iostat -kx 2 
+1\.	$ iostat -kx 2&#x20;
 
-2.	$ vmstat 2 10 
+2\.	$ vmstat 2 10&#x20;
 
-3.	$ mpstat 2 10 
+3\.	$ mpstat 2 10&#x20;
 
-4.	$ dstat --top-io --top-bio 
+4\.	$ dstat --top-io --top-bio&#x20;
 
 这些命令对于调试后端性能非常有用。
 
 •	检查磁盘使用量：服务器硬盘是否已满?
 
-•	是否开启了swap交换模式 \(si/so\)?
+•	是否开启了swap交换模式 (si/so)?
 
 •	CPU被谁占用：系统进程? 用户进程? 虚拟机?
 
@@ -126,23 +127,23 @@
 
 九、挂载点 和 文件系统
 
-1.	$ mount 
+1\.	$ mount&#x20;
 
-2.	$ cat /etc/fstab 
+2\.	$ cat /etc/fstab&#x20;
 
-3.	$ vgs 
+3\.	$ vgs&#x20;
 
-4.	$ pvs 
+4\.	$ pvs&#x20;
 
-5.	$ lvs 
+5\.	$ lvs&#x20;
 
-6.	$ df -h 
+6\.	$ df -h&#x20;
 
-7.	$ lsof +D / /\* beware not to kill your box \*/ 
+7\.	$ lsof +D / /\* beware not to kill your box \*/&#x20;
 
 •	一共挂载了多少文件系统?
 
-•	有没有某个服务专用的文件系统? \(比如MySQL?\)
+•	有没有某个服务专用的文件系统? (比如MySQL?)
 
 •	文件系统的挂载选项是什么： noatime? default? 有没有文件系统被重新挂载为只读模式了？
 
@@ -156,15 +157,15 @@
 
 十、内核、中断和网络
 
-1.	$ sysctl -a \| grep ... 
+1\.	$ sysctl -a | grep ...&#x20;
 
-2.	$ cat /proc/interrupts 
+2\.	$ cat /proc/interrupts&#x20;
 
-3.	$ cat /proc/net/ip\_conntrack /\* may take some time on busy servers \*/ 
+3\.	$ cat /proc/net/ip\_conntrack /\* may take some time on busy servers \*/&#x20;
 
-4.	$ netstat 
+4\.	$ netstat&#x20;
 
-5.	$ ss -s 
+5\.	$ ss -s&#x20;
 
 •	你的中断请求是否是均衡地分配给CPU处理，还是会有某个CPU的核因为大量的网络中断请求或者RAID请求而过载了？
 
@@ -172,7 +173,7 @@
 
 •	conntrack\_max 是否设的足够大，能应付你服务器的流量?
 
-•	在不同状态下\(TIME\_WAIT, …\)TCP连接时间的设置是怎样的？
+•	在不同状态下(TIME\_WAIT, …)TCP连接时间的设置是怎样的？
 
 •	如果要显示所有存在的连接，netstat 会比较慢， 你可以先用 ss 看一下总体情况。
 
@@ -182,13 +183,13 @@
 
 十一、系统日志和内核消息
 
-1.	$ dmesg 
+1\.	$ dmesg&#x20;
 
-2.	$ less /var/log/messages 
+2\.	$ less /var/log/messages&#x20;
 
-3.	$ less /var/log/secure 
+3\.	$ less /var/log/secure&#x20;
 
-4.	$ less /var/log/auth 
+4\.	$ less /var/log/auth&#x20;
 
 •	查看错误和警告消息，比如看看是不是很多关于连接数过多导致？
 
@@ -200,9 +201,9 @@
 
 十二、定时任务
 
-1.	$ ls /etc/cron\* + cat 
+1\.	$ ls /etc/cron\* + cat&#x20;
 
-2.	$ for user in $\(cat /etc/passwd \| cut -f1 -d:\); do crontab -l -u $user; done 
+2\.	$ for user in $(cat /etc/passwd | cut -f1 -d:); do crontab -l -u $user; done&#x20;
 
 •	是否有某个定时任务运行过于频繁?
 
@@ -220,7 +221,7 @@
 
 •	MySQL; 在mysql.log找错误消息，看看有没有结构损坏的表， 是否有innodb修复进程在运行，是否有disk/index/query 问题.
 
-•	PHP-FPM; 如果设定了 php-slow 日志, 直接找错误信息 \(php, mysql, memcache, …\)，如果没设定，赶紧设定。
+•	PHP-FPM; 如果设定了 php-slow 日志, 直接找错误信息 (php, mysql, memcache, …)，如果没设定，赶紧设定。
 
 •	Varnish; 在varnishlog 和 varnishstat 里, 检查 hit/miss比. 看看配置信息里是否遗漏了什么规则，使最终用户可以直接攻击你的后端？
 
@@ -232,13 +233,11 @@
 
 •	在服务器上运行的都是些啥？
 
-•	这个故障看起来是和 IO/硬件/网络 或者 系统配置 \(有问题的代码、系统内核调优, …\)相关。
+•	这个故障看起来是和 IO/硬件/网络 或者 系统配置 (有问题的代码、系统内核调优, …)相关。
 
 •	这个故障是否有你熟悉的一些特征？比如对数据库索引使用不当，或者太多的apache后台进程。
 
 你甚至有可能找到真正的故障源头。就算还没有找到，搞清楚了上面这些情况之后，你现在也具备了深挖下去的条件。继续努力吧！
-
-
 
 
 

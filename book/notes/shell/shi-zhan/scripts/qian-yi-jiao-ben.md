@@ -2,7 +2,7 @@
 
 
 
-```text
+```
 #!/bin/bash
 PEXIT (){
     echo $1
@@ -170,4 +170,3 @@ import_newdb_prod 000136 || PEXIT "导入数据到prod环境失败。"
 
 exit 0
 ```
-

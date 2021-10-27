@@ -1,5 +1,5 @@
 ---
-description: '引用：https://help.ubuntu.com/18.04/serverguide/network-configuration.html'
+description: 引用：https://help.ubuntu.com/18.04/serverguide/network-configuration.html
 ---
 
 # Network Configuration
@@ -10,13 +10,13 @@ description: '引用：https://help.ubuntu.com/18.04/serverguide/network-configu
 
 To quickly identify all available Ethernet interfaces
 
-```text
+```
 ip a
 ```
 
 Another application that can help identify all network interfaces available to your system is the **lshw** command. This command provides greater details around the **hardware** capabilities of specific adapters. In the example below, lshw shows a single Ethernet interface with the logical name of eth0 along with bus information, driver details and all supported capabilities.
 
-```text
+```
 sudo lshw -class network
 ```
 
@@ -24,7 +24,7 @@ sudo lshw -class network
 
 Interface logical names can also be configured via a netplan configuration. If you would like control which interface receives a particular logical name use the _**match**_ and _**set-name**_ keys. The match key is used to find an adapter based on some criteria like MAC address, driver, etc. Then the set-name key can be used to change the device to the desired logial name.
 
-```text
+```
 network:
   version: 2
   renderer: networkd
@@ -40,7 +40,7 @@ network:
 
 _**ethtool**_ is a program that displays and changes Ethernet card settings such as auto-negotiation, port speed, duplex mode, and Wake-on-LAN. The following is an example of how to view supported features and configured settings of an Ethernet interface.
 
-```text
+```
 sudo ethtool eth4(Ethernet card)
 ```
 
@@ -54,20 +54,20 @@ For temporary network configurations, you can use the ip command which is also f
 
 To temporarily configure an IP address, you can use the ip command in the following manner. Modify the IP address and subnet mask to match your network requirements.
 
-```text
+```
 sudo ip addr add 10.102.66.200/24 dev enp0s25
 ```
 
 The ip can then be used to set the link up or down.
 
-```text
+```
 ip link set dev enp0s25 up
 ip link set dev enp0s25 down
 ```
 
 To verify the IP address configuration of enp0s25, you can use the ip command in the following manner.
 
-```text
+```
 ip address show dev enp0s25
 10: enp0s25: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     link/ether 00:16:3e:e2:52:42 brd ff:ff:ff:ff:ff:ff link-netnsid 0
@@ -79,13 +79,13 @@ ip address show dev enp0s25
 
 **To configure a default gateway**, you can use the ip command in the following manner. Modify the default gateway address to match your network requirements.
 
-```text
+```
 sudo ip route add default via 10.102.66.1
 ```
 
 To verify your default gateway configuration, you can use the ip command in the following manner.
 
-```text
+```
 ip route show
 default via 10.102.66.1 dev eth0 proto dhcp src 10.102.66.200 metric 100
 10.102.66.0/24 dev eth0 proto kernel scope link src 10.102.66.200
@@ -94,14 +94,14 @@ default via 10.102.66.1 dev eth0 proto dhcp src 10.102.66.200 metric 100
 
 If you require DNS for your temporary network configuration, you can add DNS server IP addresses in the file /etc/resolv.conf. In general, editing /etc/resolv.conf directly is not recommanded, but this is a temporary and non-persistent configuration. The example below shows how to enter two DNS servers to /etc/resolv.conf, which should be changed to servers appropriate for your network. A more lengthy description of the proper persistent way to do DNS client configuration is in a following section.
 
-```text
+```
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 ```
 
 If you no longer need this configuration and wish to purge all IP configuration from an interface, you can use the ip command with the flush option as shown below.
 
-```text
+```
 ip addr flush eth0
 ```
 
@@ -111,7 +111,7 @@ Flushing the IP configuration using the ip command does not clear the contents o
 
 To configure your system to use static address assignment, create a netplan configuration in the file /etc/netplan/99\_config.yaml. The example below assumes you are configuring your first Ethernet interface identified as eth0. Change the addresses, gateway4, and nameservers values to meet the requirements of your network.
 
-```text
+```
 network:
   version: 2
   renderer: networkd
@@ -127,7 +127,7 @@ network:
 
 The configuration can then be applied using the netplan command.
 
-```text
+```
 sudo netplan apply
 ```
 
@@ -139,7 +139,7 @@ Bridging multiple interfaces is a more advanced configuration, but is very usefu
 
 Configure the bridge by editing your netplan configuration found in /etc/netplan/:
 
-```text
+```
 network:
   version: 2
   renderer: networkd
@@ -157,13 +157,11 @@ Enter the appropriate values for your physical interface and network.
 
 Now apply the configuration to enable the bridge:
 
-```text
+```
 sudo netplan apply
 ```
 
 The new bridge interface should now be up and running. The brctl provides useful information about the state of the bridge, controls which interfaces are part of the bridge, etc. See man brctl for more information.
 
 ## 五、Resources
-
-
 

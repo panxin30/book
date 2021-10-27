@@ -1,4 +1,3 @@
 # T
 
-temporary \[ˈtempəˌrerē\] 临时
-
+temporary \[ˈtempəˌrerē] 临时

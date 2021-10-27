@@ -13,11 +13,11 @@ ingress+k8s+minio+nginx
 * nginx转发后端和前端服务
 * ingress作为对外入口80/443，转发到nginx，172.31.27.142:800。使用ingress是因为可以使用cert-manager免费提供证书
 * 亚马逊的负载均衡自带证书，会导致使用了ingree的k8s中的java容器识别不到证书
-* 亚马逊的负载均衡自带证书和直接用nginx转发到k8s中的java容器，不知道会不会还识别不到证书              
+* 亚马逊的负载均衡自带证书和直接用nginx转发到k8s中的java容器，不知道会不会还识别不到证书             &#x20;
 
 ## 一、服务器优化和更新已安装软件包
 
-```text
+```
 apt update && apt upgrade
 # 更新已安装软件包
 cat /etc/sysctl.conf
@@ -55,14 +55,14 @@ net.ipv4.tcp_timestamps = 0
 
 ### 安装指定版本docker-ce
 
-```text
+```
 apt-cache madison docker-ce
 sudo apt install docker-ce=18.06.1~ce~3-0~ubuntu
 ```
 
 ### 根据需求修改docker驱动
 
-```text
+```
 root@master01:~# cat /etc/docker/daemon.json 
 {
   "storage-driver": "overlay2",
@@ -75,9 +75,9 @@ root@master01:~# cat /etc/docker/daemon.json
 }
 ```
 
-## 三、安装kubelet kubeadm kubectl\(这里使用的是官方源，国内的话需要替换\)
+## 三、安装kubelet kubeadm kubectl(这里使用的是官方源，国内的话需要替换)
 
-```text
+```
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -93,7 +93,7 @@ sudo apt-mark hold kubelet kubeadm kubectl 指定服务不自动更新
 
 ## 四、kubelet优化
 
-```text
+```
 root@saas-test:# cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
 # Note: This dropin only works with kubeadm and kubelet v1.11+
 [Service]
@@ -118,7 +118,7 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELE
 
 #### 1、增加最大pod数量
 
-```text
+```
 root@k8smaster ~]# vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf 
 添加：
 	Environment="KUBELET_NODE_MAX_PODS=--max-pods=600"
@@ -133,7 +133,7 @@ ps aux|grep kubelet
 
 #### 2、真的是内存不够了
 
-```text
+```
 kubectl describe node slave01
 Allocated resources:
   (Total limits may be over 100 percent, i.e., overcommitted.)
@@ -159,13 +159,13 @@ Allocated resources:
 
 #### 修改端口范围 会自动重启
 
-```text
+```
 cat /etc/kubernetes/manifests/kube-apiserver.yaml
 新增参数
 `- --service-node-port-range=80-65535`
 ```
 
-#### svc上的nodeport会监听在所有的节点上\(如果不指定,即是随机端口,'30000-32767'\)
+#### svc上的nodeport会监听在所有的节点上(如果不指定,即是随机端口,'30000-32767')
 
 即使有1个pod,任意访问某台的nodeport都可以访问到这个服务
 
@@ -175,14 +175,13 @@ cat /etc/kubernetes/manifests/kube-apiserver.yaml
 
 ### worker节点的kubelet开启自证书动续期，未验证
 
-参考：[https://blog.csdn.net/qq\_34556414/article/details/114057422](https://blog.csdn.net/qq_34556414/article/details/114057422)
+参考：[https://blog.csdn.net/qq\_34556414/article/details/114057422](https://blog.csdn.net/qq\_34556414/article/details/114057422)
 
 参考：[https://cloud.tencent.com/developer/article/1638399](https://cloud.tencent.com/developer/article/1638399)
 
-集群分为两种证书：一、用于集群 `Master、Etcd`等通信的证书。二、用于集群 `Kubelet` 组件证书  
+集群分为两种证书：一、用于集群 `Master、Etcd`等通信的证书。二、用于集群 `Kubelet` 组件证书\
 集群运行1年以后就会导致报 `certificate has expired or is not yet valid` 错误，导致`集群 Node`不能和`集群 Master`正常通信。
 
 这种方法只用于worker节点的kubelet与master节点通信
 
 ### master节点的证书还是得一年一处理
-

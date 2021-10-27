@@ -4,13 +4,13 @@
 
 **而实现这些功能的基本元素就是虚拟的网络设备，比如:**
 
-**虚拟二层网卡\(tap\)** 只能处理二层的以太网数据帧，与其中的以太网（Ethernet）协议对应
+**虚拟二层网卡(tap) **只能处理二层的以太网数据帧，与其中的以太网（Ethernet）协议对应
 
-**虚拟三层隧道网卡\(tun\)** 是一个点对点（Peer To Peer）的网络层设备，只能处理 IP 数据包，通常用于建立 IP 层隧道（Tunnel）
+**虚拟三层隧道网卡(tun) **是一个点对点（Peer To Peer）的网络层设备，只能处理 IP 数据包，通常用于建立 IP 层隧道（Tunnel）
 
-**虚拟网线\(veth-pair\)** 将 tap 之间，tap 与 Bridge 之间连接起来。veth pair 通常还与 Network namespace 一起配合，实现不同 Network namespace 中的网络设备传输。
+**虚拟网线(veth-pair) **将 tap 之间，tap 与 Bridge 之间连接起来。veth pair 通常还与 Network namespace 一起配合，实现不同 Network namespace 中的网络设备传输。
 
-```text
+```
 网络虚拟化：
     桥接：将物理网卡添加到bridge上，而后让虚拟机网卡后半段也桥接到bridge上，从而使得虚拟机借助
          物理网卡与外部通信。
@@ -70,7 +70,7 @@ VLAN间路由:
 
 二、netns
 
-```text
+```
 # 创建namespace
 root@network:~# ip netns add r1
 root@network:~# ip netns add r2
@@ -144,4 +144,3 @@ PING 172.16.0.2 (172.16.0.2) 56(84) bytes of data.
 ip addr del 192.168.0.97/24 dev enp1s0; ip addr add 192.168.0.97/24 dev br-ex; brctl addif br-ex enp1s0
 
 ```
-

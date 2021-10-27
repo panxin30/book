@@ -1,4 +1,3 @@
 # D
 
-distribution \[ˌdistrəˈbyo͞oSH\(ə\)n\] 分配
-
+distribution \[ˌdistrəˈbyo͞oSH(ə)n] 分配

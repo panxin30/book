@@ -12,5 +12,3 @@ description: openstack使用的系统镜像制作
 
 参考：[https://docs.openstack.org/image-guide/ubuntu-image.html](https://docs.openstack.org/image-guide/ubuntu-image.html)
 
-
-
