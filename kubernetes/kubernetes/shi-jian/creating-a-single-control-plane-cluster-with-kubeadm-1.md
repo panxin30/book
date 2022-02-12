@@ -2,7 +2,7 @@
 description: k8s1.20后使用runtime做为pod的运行
 ---
 
-# Creating a single control-plane cluster with kubeadm
+# 单控制节点集群v1.23未验证通过
 
 参考：[https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 
@@ -32,6 +32,20 @@ kubeadm init <args>
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+### 错误一、kubeadm init，初始化的时候没有带\``--pod-network-cidr=192.168.0.0/16`\`
+
+部署flannel的时候报错，根据提示就是没有分配cidr
+
+`E0212 02:26:07.203360 1 main.go:325] Error registering network: failed to acquire lease: node "cn-office-tonytest-k8s-01" pod cidr not assigned`
+
+**vim /etc/kubernetes/manifests/kube-controller-manager.yaml**\
+**增加参数：**
+
+```
+--allocate-node-cidrs=true
+--cluster-cidr=10.244.0.0/16
 ```
 
 ### 3. Installing a Pod network add-on
