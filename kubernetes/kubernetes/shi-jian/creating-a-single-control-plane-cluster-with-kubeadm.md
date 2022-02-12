@@ -4,6 +4,8 @@
 
 ubuntu 18.04,k8s 1.17.17,docker 19.03.15 数据盘使用xfs格式，亚马逊服务器，国内的话，相关源需要替换。
 
+参考：[https://github.com/kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx)
+
 ## 架构
 
 ingress+k8s+minio+nginx
