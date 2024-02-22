@@ -4,6 +4,10 @@
 
 ubuntu 18.04,k8s 1.17.17,docker 19.03.15 数据盘使用xfs格式，亚马逊服务器，国内的话，相关源需要替换。
 
+参考：[https://github.com/kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx)
+
+**从1.24后就不能用docker了**
+
 ## 架构
 
 ingress+k8s+minio+nginx
@@ -13,7 +17,7 @@ ingress+k8s+minio+nginx
 * nginx转发后端和前端服务
 * ingress作为对外入口80/443，转发到nginx，172.31.27.142:800。使用ingress是因为可以使用cert-manager免费提供证书
 * 亚马逊的负载均衡自带证书，会导致使用了ingree的k8s中的java容器识别不到证书
-* 亚马逊的负载均衡自带证书和直接用nginx转发到k8s中的java容器，不知道会不会还识别不到证书             &#x20;
+* 亚马逊的负载均衡自带证书可直接用nginx转发到k8s中的java容器
 
 ## 一、服务器优化和更新已安装软件包
 

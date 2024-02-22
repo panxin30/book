@@ -2,7 +2,7 @@
 
 引用: [https://www.ibm.com/developerworks/cn/linux/1310\_xiawc\_networkdevice/](https://www.ibm.com/developerworks/cn/linux/1310\_xiawc\_networkdevice/)
 
-引用: [https://blog.csdn.net/sld880311/article/details/77840343?ops\_request\_misc=%257B%2522request%255Fid%2522%253A%2522161473663516780357211805%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D\&request\_id=161473663516780357211805\&biz\_id=0\&utm\_medium=distribute.pc\_search\_result.none-task-blog-2\~all\~sobaiduend\~default-1-77840343.first\_rank\_v2\_pc\_rank\_v29\&utm\_term=linux+bridge](https://blog.csdn.net/sld880311/article/details/77840343?ops\_request\_misc=%257B%2522request%255Fid%2522%253A%2522161473663516780357211805%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D\&request\_id=161473663516780357211805\&biz\_id=0)
+引用: [https://blog.csdn.net/sld880311/article/details/77840343?ops\_request\_misc=%257B%2522request%255Fid%2522%253A%2522161473663516780357211805%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D\&request\_id=161473663516780357211805\&biz\_id=0\&utm\_medium=distribute.pc\_search\_result.none-task-blog-2\~all\~sobaiduend\~default-1-77840343.first\_rank\_v2\_pc\_rank\_v29\&utm\_term=linux+bridge](https://blog.csdn.net/sld880311/article/details/77840343?ops\_request\_misc=%257B%2522request%255Fid%2522%253A%2522161473663516780357211805%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D\&request\_id=161473663516780357211805\&biz\_id=0\&utm\_medium=distribute.pc\_search\_result.none-task-blog-2\~all\~sobaiduend\~default-1-77840343.first\_rank\_v2\_pc\_rank\_v29\&utm\_term=linux+bridge)
 
 ## 基本概念
 

@@ -27,4 +27,3 @@ Dashboard – **horizon installation for Stein**
 
 Block Storage service – **cinder installation for Stein**
 
-****

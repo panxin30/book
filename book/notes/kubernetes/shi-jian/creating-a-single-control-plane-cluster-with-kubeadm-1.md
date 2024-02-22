@@ -2,7 +2,7 @@
 description: k8s1.20后使用runtime做为pod的运行
 ---
 
-# Creating a single control-plane cluster with kubeadm
+# Creating a single control-plane cluster with kubeadm v1.22
 
 参考：[https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/)
 

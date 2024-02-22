@@ -4,11 +4,11 @@
 
 **而实现这些功能的基本元素就是虚拟的网络设备，比如:**
 
-**虚拟二层网卡(tap) **只能处理二层的以太网数据帧，与其中的以太网（Ethernet）协议对应
+**虚拟二层网卡(tap)** 只能处理二层的以太网数据帧，与其中的以太网（Ethernet）协议对应
 
-**虚拟三层隧道网卡(tun) **是一个点对点（Peer To Peer）的网络层设备，只能处理 IP 数据包，通常用于建立 IP 层隧道（Tunnel）
+**虚拟三层隧道网卡(tun)** 是一个点对点（Peer To Peer）的网络层设备，只能处理 IP 数据包，通常用于建立 IP 层隧道（Tunnel）
 
-**虚拟网线(veth-pair) **将 tap 之间，tap 与 Bridge 之间连接起来。veth pair 通常还与 Network namespace 一起配合，实现不同 Network namespace 中的网络设备传输。
+**虚拟网线(veth-pair)** 将 tap 之间，tap 与 Bridge 之间连接起来。veth pair 通常还与 Network namespace 一起配合，实现不同 Network namespace 中的网络设备传输。
 
 ```
 网络虚拟化：

@@ -33,7 +33,7 @@ GitHub 为每一个用户分配了一个二级域名\<user-id>.github.io，用�
 
 #### 2. 如果被墙，切换为淘宝镜像再安装
 
-* &#x20;切换为使用国内速度较快的淘宝镜像。
+* 切换为使用国内速度较快的淘宝镜像。
 
 ```
 npm config set registry=http://registry.npm.taobao.org -g
@@ -122,7 +122,7 @@ $ git push
 
 回到GitHub Repository 页面，点「Actions」tab，会看到有一个workflow 任务被自动触发执行中：
 
-![](<.gitbook/assets/image (1).png>)
+![](.gitbook/assets/image.png)
 
 等到执行完毕变成绿勾勾，会看到自动建立了`gh-pages`branch并commit GitBook静态网站的档案：
 
@@ -162,8 +162,6 @@ _**注意：**_\
 16. 高级搜索，支持中文（`search-pro`）
 17. 添加 `Github` 图标（`github`）
 
-
-
 #### 左侧目录可折叠
 
 **2.2.1 chapter-fold**
@@ -178,7 +176,7 @@ _**注意：**_\
 ```
 
 然后使用`npm install gitbook-plugin-chapter-fold`命令安装插件。\
-_**注意：**_要想目录折叠，`SUMMARY.md`目录应该如下：
+\_**注意：**\_要想目录折叠，`SUMMARY.md`目录应该如下：
 
 ```
 * [项目介绍](README.md)
@@ -210,7 +208,7 @@ _**注意：**_要想目录折叠，`SUMMARY.md`目录应该如下：
 ```
 
 安装命令：`npm install gitbook-plugin-expandable-chapters`\
-_**注意：**_这个插件也有问题，就是如下写法的，需要点击箭头才能展开收缩菜单：
+\_**注意：**\_这个插件也有问题，就是如下写法的，需要点击箭头才能展开收缩菜单：
 
 ```
 * [tcp说明](doc/http/tcp/tcp说明.md)
@@ -306,4 +304,4 @@ _**注意：**_\
 \
 更多的颜色参考：[https://github.com/gaearon/gi...](https://github.com/gaearon/gitbook-plugin-prism)
 
-_**注意：**_代码块的语言标注比如`JS`,`CSS`,如果标注一个插件不认识的语言，在运行打包命令`gitbook build .`这个插件会报错，提示不认识这个语言，这里需要注意一下。
+\_**注意：**\_代码块的语言标注比如`JS`,`CSS`,如果标注一个插件不认识的语言，在运行打包命令`gitbook build .`这个插件会报错，提示不认识这个语言，这里需要注意一下。

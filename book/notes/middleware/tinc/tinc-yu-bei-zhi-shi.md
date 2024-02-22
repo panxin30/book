@@ -1,6 +1,6 @@
 # tinc 预备知识
 
-## 预备知识 <a href="yu-bei-zhi-shi" id="yu-bei-zhi-shi"></a>
+## 预备知识 <a href="#yu-bei-zhi-shi" id="yu-bei-zhi-shi"></a>
 
 tinc 的几大的特点：&#x20;
 
@@ -24,7 +24,7 @@ tinc 的几大的特点：&#x20;
 
 **tinc VPN 名称接受 a-z 0-9 \_ 中的字符，主机名称也是一样。**
 
-## 配置文件说明 <a href="ru-he-pei-zhi-he-jiao-huan-mi-yao" id="ru-he-pei-zhi-he-jiao-huan-mi-yao"></a>
+## 配置文件说明 <a href="#ru-he-pei-zhi-he-jiao-huan-mi-yao" id="ru-he-pei-zhi-he-jiao-huan-mi-yao"></a>
 
 这是笔记本上的tinc配置
 
@@ -61,7 +61,7 @@ tinc-up 本网络启动时执行的脚本
 
 \
 首先开启 Linux 转发，在/etc/sysctl.conf设置net.ipv4.ip_forward = 1，并通过sysctl -p来应用配置。????_\
-__\
+\
 _修改tinc.conf配置文件_\
 _Name = Server_\
 _Interface = tinc_\

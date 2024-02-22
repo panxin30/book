@@ -6,13 +6,13 @@ IaaS(openstack),PaaS(docker),SaaS
 
 **Block Storage: 代码名Cinder:** 为运行实例而提供的持久性块存储。
 
-**image service:代码名字Glance: **当nova创建一个虚拟机实例，需要下载磁盘映像()的时候，会先找glance，glance会告诉你那些可用，到哪里去下载。所以glance是作为swift前端，存储和检索虚拟机磁盘镜像。
+**image service:代码名字Glance:** 当nova创建一个虚拟机实例，需要下载磁盘映像()的时候，会先找glance，glance会告诉你那些可用，到哪里去下载。所以glance是作为swift前端，存储和检索虚拟机磁盘镜像。
 
 **Identity: 代码名Key stone:** 为Openstack中所有服务提供认证和授权服务以及端点目录
 
 ## 新建并启动一个实例的流程：
 
-通过dashboard/CLI发起创建实例 -->先到**keystone**请求认证，认证通过则访问**nova-api**(能收到用户请求的调用接口,监听在某个**套接字上**, tcp连接的端点叫套接字（socket）,根据RFC 793的定义,**端口号拼接到IP地址即构成了套接字 **)
+通过dashboard/CLI发起创建实例 -->先到**keystone**请求认证，认证通过则访问**nova-api**(能收到用户请求的调用接口,监听在某个**套接字上**, tcp连接的端点叫套接字（socket）,根据RFC 793的定义,**端口号拼接到IP地址即构成了套接字** )
 
 \-->**nova-api**收到请求后，再查询**keystone**这个帐号有没有相应权限，有则下一步**nova-api**先查询**novaDB**(存放此前创建过的实例的各种结果实例名,虚拟核心数,内存大小等。大概新建实例的规格也存放在这?)-->**novaDB**把待建实例的规格发送给**nova-api**-->**nova-api**把这个信息生成一个特定的请求交给**nova-cumpute**，但是**nova-api和nova-compute**之间的**交流是异步**的，因此**nova-api**把这个特定的请求丢给**Queue**(队列)-->**nova-scheduler**在队列中读取到这个新建请求，根据此新建请求和调度策略选择一个计算节点-->**nova-scheduler**更新选择信息到**novaDB**中，确认保存后-->**nova-scheduler**将此调度结果丢到**Queue**(队列)-->被选中的**compute**节点从**Queue**队列中读取到调度结果，在本地运行实例(为了避免给**novaDB**造成太大压力,**nova-compute**把新建实例的运行等相关信息扔到**Queue**队列中)-->**nova-conductor**负责从**Queue**队列中取出与数据库更新相关的信息-->**novaDB**存储信息-->返回存储信息给**nova-conductor**-->扔给**Queue**队列-->**nova-compute**获取自己更新实例信息存储到数据库的结果，下一步，这个实例需要运行除了需要CPU,内存之外的其他资源,磁盘镜像，网络服务，磁盘服务等
 
