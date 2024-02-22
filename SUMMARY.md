@@ -7,7 +7,7 @@
   * [notes](book/notes/README.md)
     * [Kubernetes](book/notes/kubernetes/README.md)
       * [实践](book/notes/kubernetes/shi-jian/README.md)
-        * [ceshi tongbu](book/notes/kubernetes/shi-jian/ceshi-tongbu.md)
+        * [ceshi tongbu17:54](book/notes/kubernetes/shi-jian/ceshi-tongbu17-54.md)
         * [Creating a single control-plane cluster with kubeadm v1.22](book/notes/kubernetes/shi-jian/creating-a-single-control-plane-cluster-with-kubeadm-1.md)
         * [Creating a single control-plane cluster with kubeadm v1.17](book/notes/kubernetes/shi-jian/creating-a-single-control-plane-cluster-with-kubeadm.md)
         * [k8s v1.23 single](book/notes/kubernetes/shi-jian/k8s-v1.23-single.md)
