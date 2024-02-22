@@ -1,4 +1,4 @@
-root: ./book/
+root: ./
 
 ​structure:
   readme: README.md
