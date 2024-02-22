@@ -6,4 +6,6 @@
 
 或者gitbook同步到github，目前主要是在gitbook操作，所以选择的自动从gitbook到github
 
+手动同步看云分支，github到gitbook没有成功？？？
+
 20240222
